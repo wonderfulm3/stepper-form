@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/demo/app.iml" filepath="$PROJECT_DIR$/demo/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/stepper.iml" filepath="$PROJECT_DIR$/library/stepper.iml" />
+      <module fileurl="file://C:\Users\Tammen\AndroidStudioProjects\stepper-form\demo\app.iml" filepath="C:\Users\Tammen\AndroidStudioProjects\stepper-form\demo\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://C:\Users\Tammen\AndroidStudioProjects\stepper-form\library\stepper.iml" filepath="C:\Users\Tammen\AndroidStudioProjects\stepper-form\library\stepper.iml" />
       <module fileurl="file://$PROJECT_DIR$/stepper-form.iml" filepath="$PROJECT_DIR$/stepper-form.iml" />
     </modules>
   </component>
