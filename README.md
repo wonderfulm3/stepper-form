@@ -1,7 +1,10 @@
-# Stepper Form - A Material Design inspired Stepper form
+# Stepper Form
+
+*The journey of a thousand miles begins with one step. - Lao Tzu*
 
 [![Join the chat at https://gitter.im/stepper-forml](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/stepper-form?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/wonderfulm3/stepper-form.svg?branch=master)](https://travis-ci.org/wonderfulm3/stepper-form)
+[![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23)
 
 ## Welcome to GitHub Pages
 
