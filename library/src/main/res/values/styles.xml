@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--public styles which may be configured -->
+    <!--public styles which may be modified -->
 
-    <!-- private styles which may NOT be configured -->
+    <!-- private styles which may NOT be modified -->
+    <style name="io_ta_stepper_form_active_step_circle">
+        <item name="android:textSize">@dimen/io.ta.stepper.form.12sp</item>
+        <item name="android:textColor">@color/io.ta.blue.500</item>
+    </style>
+
+    <style name="io_ta_stepper_form_inactive_step_circle" parent="io_ta_stepper_form_active_step_circle">
+        <item name="android:textColor">@color/io.ta.white</item>
+    </style>
+
+    <style name="io_ta_stepper_form_optional_step" parent="io_ta_stepper_form_active_step_circle">
+        <item name="android:textColor">@color/io.ta.black.54.percent</item>
+    </style>
 </resources>

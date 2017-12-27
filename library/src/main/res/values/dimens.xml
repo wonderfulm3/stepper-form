@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--public dimens which may be configured -->
+    <!--public dimens which may be modified -->
 
-    <!-- private dimens which may NOT be configured -->
-    <string name="io_ta_stepper_form_24dp">24dp</string>
-    <string name="io_ta_stepper_form_icon_width" translatable="false">@string/io_ta_stepper_form_24dp</string>
-    <string name="io_ta_stepper_form_icon_height" translatable="false">@string/io_ta_stepper_form_24dp</string>
+    <!-- private dimens which may NOT be modified -->
+    <!-- sp section -->
+    <dimen name="io.ta.stepper.form.12sp">12sp</dimen>
+    <dimen name="io.ta.stepper.form.14sp">14sp</dimen>
+
+    <!-- dp section -->
+    <dimen name="io.ta.stepper.form.1dp">1dp</dimen>
+    <dimen name="io.ta.stepper.form.24dp">24dp</dimen>
+    <dimen name="io.ta.stepper.form.icon.width" translatable="false">
+        @dimen/io.ta.stepper.form.24dp
+    </dimen>
+    <dimen name="io.ta.stepper.form.icon.height" translatable="false">
+        @dimen/io.ta.stepper.form.24dp
+    </dimen>
 </resources>

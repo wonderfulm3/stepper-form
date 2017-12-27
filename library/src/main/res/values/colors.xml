@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--public colors which may be modified -->
+
+    <!-- private colors which may NOT be modified -->
+    <!-- Using reference from https://www.viget.com/articles/equating-color-and-transparency -->
+    <color name="io.ta.black.87.percent">#212121</color>
+    <color name="io.ta.black.54.percent">#757575</color>
+    <color name="io.ta.black.38.percent">#9E9E9E</color>
+
+    <!-- Colors are defaults based off https://material.io/guidelines/style/color.html design -->
+    <color name="io.ta.blue.500">#2196F3</color>
+    <color name="io.ta.grey.400">#BDBDBD</color>
+    <color name="io.ta.white">#FFFFFF</color>
+</resources>

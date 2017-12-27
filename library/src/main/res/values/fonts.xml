@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--public dimens which may be modified -->
+
+    <!-- private dimens which may NOT be modified -->
+    <style name="io_ta_stepper_form_style_active_circle">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/io.ta.stepper.form.12sp</item>
+    </style>
+
+    <style name="io_ta_stepper_form_style_active_step">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/io.ta.stepper.form.14sp</item>
+    </style>
+
+    <style name="io_ta_stepper_form_style_optional_steps">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/io.ta.stepper.form.12sp</item>
+    </style>
+</resources>
