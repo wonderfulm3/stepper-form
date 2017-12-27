@@ -1,3 +1,6 @@
+# Stepper Form - A Material Design inspired Stepper form
+
+[![Join the chat at https://gitter.im/stepper-forml](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/stepper-form?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/wonderfulm3/stepper-form.svg?branch=master)](https://travis-ci.org/wonderfulm3/stepper-form)
 
 ## Welcome to GitHub Pages
