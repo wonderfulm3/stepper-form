@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--public dimens which may be configured -->
+
+    <!-- private dimens which may NOT be configured -->
+    <string name="io_ta_stepper_form_24dp">24dp</string>
+    <string name="io_ta_stepper_form_icon_width" translatable="false">@string/io_ta_stepper_form_24dp</string>
+    <string name="io_ta_stepper_form_icon_height" translatable="false">@string/io_ta_stepper_form_24dp</string>
+</resources>

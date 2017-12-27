@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">stepper</string>
+
+    <!--public strings which may be configured -->
+
+    <!-- private strings which may NOT be configured -->
 </resources>

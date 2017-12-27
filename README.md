@@ -5,6 +5,7 @@ _The journey of a thousand miles begins with one step. - Lao Tzu_
 
 [![Join the chat at https://gitter.im/stepper-forml](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/stepper-form?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/wonderfulm3/stepper-form.svg?branch=master)](https://travis-ci.org/wonderfulm3/stepper-form)
+[![Maintenance](https://img.shields.io/maintenance/yes/2018.svg?style=flat)]()
 [![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
