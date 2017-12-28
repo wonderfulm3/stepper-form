@@ -5,7 +5,7 @@ sudo: false
 env:
     global:
         - ADB_INSTALL_TIMEOUT=10    #Time out to 10 mins
-        - ANDROID_TARGET=android-26
+        - ANDROID_TARGET=android-23
         - ANDROID_ABI=armeabi-v7a
 
 before_cache:
@@ -23,7 +23,7 @@ android:
         - platform-tools
         - tools
         - build-tools-27.0.3
-        - android-26
+        - android-23
 
         # Additional components
         - extra-google-google_play_services
@@ -31,7 +31,7 @@ android:
         - extra-android-m2repository
 
         #system images
-        - sys-img-armeabi-v7a-android-26
+        - sys-img-armeabi-v7a-android-23
 
 licenses:
     - 'android-sdk-preview-license-52d11cd2'
