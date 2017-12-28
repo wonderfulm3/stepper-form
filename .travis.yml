@@ -21,7 +21,7 @@ cache:
 android:
     components:
         - tools
-        - build-tools-26.0.1
+        - build-tools-27.0.3
         - android-23
         - platform-tools
         - tools
@@ -46,9 +46,16 @@ before_script:
     - echo no | android create avd --force --name test -t android-23 --abi google_apis/armeabi-v7a    #Create AVD for given api
     - emulator -avd test -no-skin -no-audio -no-window &    #Start emulator
 
+install:
+    - echo y | android update sdk -u -a -t tools
+    - echo y | android update sdk -u -a -t platform-tools
+    - echo y | android update sdk -u -a -t build-tools-27.0.3
+    - echo y | android update sdk -u -a -t android-23
+    - echo y | android update sdk -u -a -t extra-google-m2repository
+    - echo y | android update sdk -u -a -t extra-android-m2repository
+
 script:
     - sdkmanager --list || true
-    - echo yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
     - echo "Travis branch is $TRAVIS_BRANCH"
     - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
     - ./gradlew build jacocoTestReport assembleAndroidTest
