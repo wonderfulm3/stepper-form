@@ -6,7 +6,6 @@ env:
     global:
         - ADB_INSTALL_TIMEOUT=10    #Time out to 10 mins
         - ANDROID_TARGET=android-23
-        - ANDROID_ABI=armeabi-v7a
 
 before_cache:
     - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -42,9 +41,8 @@ licenses:
 
 before_script:
     - chmod +x gradlew      #Grand permissions
-    #- android list targets
-    - android list sdk --extended --no-ui --all
-    - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI    #Create AVD for given api
+    - android list targets
+    - echo no | android create avd --force --name test -t android-23 --abi armeabi-v7a    #Create AVD for given api
     - emulator -avd test -no-skin -no-audio -no-window &    #Start emulator
 
 script:
