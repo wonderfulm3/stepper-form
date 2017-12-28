@@ -40,7 +40,8 @@ licenses:
 
 before_script:
     - chmod +x gradlew      #Grand permissions
-    - android list targets
+    #- android list targets
+    - android list sdk --extended --no-ui --all
     - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI    #Create AVD for given api
     - emulator -avd test -no-skin -no-audio -no-window &    #Start emulator
 
