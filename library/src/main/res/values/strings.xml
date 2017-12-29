@@ -6,7 +6,7 @@
     <string name="io.ta.step_back">Back</string>
     <string name="io.ta.step_next">Next</string>
     <string name="io.ta.step_of">Step 4 of 6</string>
-    <string name="io.ta.test.1">1</string>
+    <string name="io.ta.test.3">3</string>
 
     <!-- private strings which may NOT be modified -->
 </resources>
