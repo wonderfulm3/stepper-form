@@ -6,94 +6,33 @@
     android:animateLayoutChanges="true"
     android:background="@color/io.ta.white">
 
-    <RelativeLayout
-        android:id="@+id/rl_step_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@color/io.ta.black.10.percent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/io.ta.stepper.form.16dp"
-            android:paddingEnd="0dp"
-            android:paddingStart="@dimen/io.ta.stepper.form.24dp"
-            android:paddingTop="@dimen/io.ta.stepper.form.16dp"
-            android:text="@string/io.ta.step_of" />
-    </RelativeLayout>
-
     <TextView
         android:id="@+id/io_ta_step_1"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
         android:layout_below="@id/rl_step_text"
         android:layout_marginStart="@dimen/io.ta.stepper.form.24dp"
         android:layout_marginTop="@dimen/io.ta.stepper.form.24dp"
         android:background="@drawable/ic_empty_circle"
         android:gravity="center"
-        android:text="1"
+        android:text="@string/io.ta.test.1"
         android:textColor="@color/io.ta.white" />
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/io_ta_edit"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
         android:layout_below="@+id/io_ta_step_1"
         android:layout_marginStart="@dimen/io.ta.stepper.form.24dp"
         android:layout_marginTop="@dimen/io.ta.stepper.form.24dp"
         app:srcCompat="@drawable/ic_edit_circle" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
         android:layout_below="@+id/io_ta_edit"
         android:layout_marginStart="@dimen/io.ta.stepper.form.24dp"
         android:layout_marginTop="@dimen/io.ta.stepper.form.24dp"
         app:srcCompat="@drawable/ic_checkmark_circle_done" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/io.ta.black.10.percent">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="@dimen/io.ta.stepper.form.8dp"
-            android:paddingBottom="@dimen/io.ta.stepper.form.8dp"
-            android:paddingTop="@dimen/io.ta.stepper.form.8dp"
-            app:srcCompat="@drawable/ic_keyboard_arrow_left" />
-
-        <TextView
-            style="@style/io_ta_stepper_form_style_step_text_enabled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/iv_back"
-            android:text="@string/io.ta.step_back" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/io.ta.stepper.form.8dp"
-            android:paddingBottom="@dimen/io.ta.stepper.form.8dp"
-            android:paddingTop="@dimen/io.ta.stepper.form.8dp"
-            android:tint="@color/io.ta.black.38.percent"
-            app:srcCompat="@drawable/ic_keyboard_arrow_right" />
-
-        <TextView
-            style="@style/io_ta_stepper_form_style_step_text_disabled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/iv_next"
-            android:text="@string/io.ta.step_next" />
-
-    </RelativeLayout>
 </RelativeLayout>

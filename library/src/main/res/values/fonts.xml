@@ -31,5 +31,6 @@
 
     <style name="io_ta_stepper_form_style_step_text_disabled" parent="io_ta_stepper_form_style_step_text_enabled">
         <item name="android:textColor">@color/io.ta.black.38.percent</item>
+        <item name="android:drawableTint">@color/io.ta.black.38.percent</item>
     </style>
 </resources>

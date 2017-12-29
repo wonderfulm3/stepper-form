@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/io.ta.white">
+
+    <RelativeLayout
+        android:id="@+id/rl_step_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/io.ta.black.10.percent"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/io.ta.stepper.form.16dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="@dimen/io.ta.stepper.form.24dp"
+            android:paddingTop="@dimen/io.ta.stepper.form.16dp"
+            android:text="@string/io.ta.step_of" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/io.ta.black.10.percent">
+
+        <TextView
+            android:id="@+id/io_ta_tv_step_back"
+            style="@style/io_ta_stepper_form_style_step_text_enabled"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:drawableStart="@drawable/ic_keyboard_arrow_left"
+            android:gravity="center"
+            android:paddingEnd="0dp"
+            android:paddingStart="@dimen/io.ta.stepper.form.8dp"
+            android:text="@string/io.ta.step_back" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/io.ta.stepper.form.24dp"
+            android:layout_marginStart="@dimen/io.ta.stepper.form.24dp"
+            android:layout_toEndOf="@+id/io_ta_tv_step_back"
+            android:layout_toStartOf="@+id/io_ta_tv_step_next"
+            android:indeterminate="false"
+            android:max="100"
+            android:minWidth="150dp"
+            android:progress="66"
+            android:progressTint="@color/io.ta.blue.500" />
+
+        <TextView
+            android:id="@+id/io_ta_tv_step_next"
+            style="@style/io_ta_stepper_form_style_step_text_disabled"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right"
+            android:gravity="center"
+            android:paddingEnd="@dimen/io.ta.stepper.form.8dp"
+            android:paddingStart="0dp"
+            android:text="@string/io.ta.step_next"
+            tools:ignore="RelativeOverlap" />
+
+    </RelativeLayout>
+</RelativeLayout>
