@@ -20,4 +20,16 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">@dimen/io.ta.stepper.form.12sp</item>
     </style>
+
+    <style name="io_ta_stepper_form_style_step_text_enabled">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/io.ta.black.54.percent</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="io_ta_stepper_form_style_step_text_disabled" parent="io_ta_stepper_form_style_step_text_enabled">
+        <item name="android:textColor">@color/io.ta.black.38.percent</item>
+    </style>
 </resources>

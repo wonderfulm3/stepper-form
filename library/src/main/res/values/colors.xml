@@ -7,6 +7,7 @@
     <color name="io.ta.black.87.percent">#212121</color>
     <color name="io.ta.black.54.percent">#757575</color>
     <color name="io.ta.black.38.percent">#9E9E9E</color>
+    <color name="io.ta.black.10.percent">#E5E5E5</color>
 
     <!-- Colors are defaults based off https://material.io/guidelines/style/color.html design -->
     <color name="io.ta.blue.500">#2196F3</color>

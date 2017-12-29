@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">stepper</string>
+    <string name="title_activity_main">MainActivity</string>
 
     <!--public strings which may be modified -->
+    <string name="io.ta.step_back">Back</string>
+    <string name="io.ta.step_next">Next</string>
+    <string name="io.ta.step_of">Step 4 of 6</string>
 
     <!-- private strings which may NOT be modified -->
 </resources>
