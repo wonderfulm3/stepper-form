@@ -65,6 +65,10 @@ public class MobileStepElement extends RelativeLayout implements View.OnClickLis
                     tvTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_checkmark_circle_done, 0, 0, 0);
                     tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_step);
                     break;
+                default:
+                    tvTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_inactive_circle, 0, 0, 0);
+                    tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_step);
+                    break;
             }
             tvTitle.setText(stepText);
             if (subText != null) {
