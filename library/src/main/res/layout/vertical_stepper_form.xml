@@ -9,7 +9,7 @@
     <io.tammen.stepper.widget.MobileStepElement
         android:id="@+id/io_ta_step_1"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/io.ta.stepper.form.24dp"
         app:stepIcon="checked"
         app:stepTitle="Step 1" />
@@ -25,44 +25,42 @@
     <io.tammen.stepper.widget.MobileStepElement
         android:id="@+id/io_ta_edit"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/line_1"
         app:stepIcon="checked"
         app:stepTitle="Step 2" />
 
     <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/line_2"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_below="@id/io_ta_edit"
         android:layout_marginStart="36dp"
         android:background="@drawable/ic_vertical_layer_line" />
 
-    <TextView
+    <io.tammen.stepper.widget.MobileStepElement
         android:id="@+id/io_ta_step_3"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_below="@id/io_ta_edit"
-        android:layout_marginStart="@dimen/io.ta.stepper.form.24dp"
-        android:layout_marginTop="@dimen/io.ta.stepper.form.24dp"
-        android:background="@drawable/ic_empty_circle"
-        android:gravity="center"
-        android:text="@string/io.ta.test.3"
-        android:textColor="@color/io.ta.white" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line_2"
+        app:stepIcon="error"
+        app:stepTitle="Step 3" />
 
     <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/line_3"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_below="@id/io_ta_step_3"
         android:layout_marginStart="36dp"
         android:background="@drawable/ic_vertical_layer_line" />
 
-    <TextView
+    <io.tammen.stepper.widget.MobileStepElement
         android:id="@+id/io_ta_step_4"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_below="@id/io_ta_step_3"
-        android:layout_marginStart="@dimen/io.ta.stepper.form.24dp"
-        android:layout_marginTop="@dimen/io.ta.stepper.form.24dp"
-        android:background="@drawable/ic_alert" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line_3"
+        app:stepIcon="inactive"
+        app:stepSubtext="You may skip this step"
+        app:stepTitle="Step 4" />
 
 </RelativeLayout>

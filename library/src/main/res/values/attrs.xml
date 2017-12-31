@@ -5,9 +5,10 @@
         <attr name="stepIcon" format="enum">
             <enum name="active" value="0" />
             <enum name="inactive" value="1" />
-            <enum name="edit" value="3" />
-            <enum name="error" value="4" />
-            <enum name="checked" value="5" />
+            <enum name="edit" value="2" />
+            <enum name="error" value="3" />
+            <enum name="checked" value="4" />
         </attr>
+        <attr name="stepSubtext" format="string" />
     </declare-styleable>
 </resources>

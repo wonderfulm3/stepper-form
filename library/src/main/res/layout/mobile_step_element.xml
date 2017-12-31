@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/row_element_title"
-        style="@style/io_ta_stepper_form_style_active_step"
+        style="@style/io_ta_stepper_form_style_inactive_step"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/io.ta.stepper.form.24dp"
         android:layout_marginStart="@dimen/io.ta.stepper.form.24dp"
         android:drawablePadding="@dimen/io.ta.stepper.form.12dp"
-        android:drawableStart="@drawable/ic_checkmark_circle_done"
+        android:drawableStart="@drawable/ic_empty_circle"
         android:gravity="center|start"
-        android:text="Some active step name"
-        android:textColor="@color/io.ta.black.87.percent" />
+        android:text="@string/io.ta.mobile.step.placeholder" />
+
+    <TextView
+        android:id="@+id/row_element_subtext"
+        style="@style/io_ta_stepper_form_style_optional_step"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/row_element_title"
+        android:layout_marginEnd="@dimen/io.ta.stepper.form.24dp"
+        android:layout_marginStart="60dp"
+        android:gravity="center|start"
+        android:visibility="gone" />
 </RelativeLayout>
