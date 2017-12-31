@@ -6,38 +6,35 @@
     android:animateLayoutChanges="true"
     android:background="@color/io.ta.white">
 
-    <TextView
+    <io.tammen.stepper.widget.MobileStepElement
         android:id="@+id/io_ta_step_1"
-        android:layout_width="28dp"
+        android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:layout_below="@id/rl_step_text"
-        android:layout_marginStart="@dimen/io.ta.stepper.form.24dp"
         android:layout_marginTop="@dimen/io.ta.stepper.form.24dp"
-        android:background="@drawable/ic_checkmark_circle_done"
-        android:gravity="center"
-        android:textColor="@color/io.ta.white" />
+        app:stepIcon="checked"
+        app:stepTitle="Step 1" />
 
     <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/line_1"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_below="@id/io_ta_step_1"
-        android:layout_marginStart="37dp"
+        android:layout_marginStart="36dp"
         android:background="@drawable/ic_vertical_layer_line" />
 
-    <android.support.v7.widget.AppCompatImageView
+    <io.tammen.stepper.widget.MobileStepElement
         android:id="@+id/io_ta_edit"
-        android:layout_width="28dp"
+        android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:layout_below="@+id/io_ta_step_1"
-        android:layout_marginStart="@dimen/io.ta.stepper.form.24dp"
-        android:layout_marginTop="@dimen/io.ta.stepper.form.24dp"
-        app:srcCompat="@drawable/ic_edit_circle" />
+        android:layout_below="@+id/line_1"
+        app:stepIcon="checked"
+        app:stepTitle="Step 2" />
 
     <android.support.v7.widget.AppCompatImageView
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_below="@id/io_ta_edit"
-        android:layout_marginStart="37dp"
+        android:layout_marginStart="36dp"
         android:background="@drawable/ic_vertical_layer_line" />
 
     <TextView
@@ -56,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_below="@id/io_ta_step_3"
-        android:layout_marginStart="37dp"
+        android:layout_marginStart="36dp"
         android:background="@drawable/ic_vertical_layer_line" />
 
     <TextView

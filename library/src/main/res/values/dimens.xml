@@ -11,6 +11,7 @@
     <!-- dp section -->
     <dimen name="io.ta.stepper.form.1dp">1dp</dimen>
     <dimen name="io.ta.stepper.form.8dp">8dp</dimen>
+    <dimen name="io.ta.stepper.form.12dp">12dp</dimen>
     <dimen name="io.ta.stepper.form.16dp">16dp</dimen>
     <dimen name="io.ta.stepper.form.24dp">24dp</dimen>
     <dimen name="io.ta.stepper.form.icon.width" translatable="false">

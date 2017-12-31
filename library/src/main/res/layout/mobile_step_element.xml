@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/row_element_title"
+        style="@style/io_ta_stepper_form_style_active_step"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginEnd="@dimen/io.ta.stepper.form.24dp"
+        android:layout_marginStart="@dimen/io.ta.stepper.form.24dp"
+        android:drawablePadding="@dimen/io.ta.stepper.form.12dp"
+        android:drawableStart="@drawable/ic_checkmark_circle_done"
+        android:gravity="center|start"
+        android:text="Some active step name"
+        android:textColor="@color/io.ta.black.87.percent" />
+</RelativeLayout>
