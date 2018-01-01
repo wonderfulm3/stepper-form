@@ -6,7 +6,7 @@
     android:animateLayoutChanges="true"
     android:background="@color/io.ta.white">
 
-    <io.tammen.stepper.widget.MobileStepElement
+    <io.tammen.stepper.widget.mobile.StepElement
         android:id="@+id/io_ta_step_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
         android:layout_marginStart="36dp"
         android:background="@drawable/ic_vertical_layer_line" />
 
-    <io.tammen.stepper.widget.MobileStepElement
+    <io.tammen.stepper.widget.mobile.StepElement
         android:id="@+id/io_ta_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         android:layout_marginStart="36dp"
         android:background="@drawable/ic_vertical_layer_line" />
 
-    <io.tammen.stepper.widget.MobileStepElement
+    <io.tammen.stepper.widget.mobile.StepElement
         android:id="@+id/io_ta_step_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
         android:layout_marginStart="36dp"
         android:background="@drawable/ic_vertical_layer_line" />
 
-    <io.tammen.stepper.widget.MobileStepElement
+    <io.tammen.stepper.widget.mobile.StepElement
         android:id="@+id/io_ta_step_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

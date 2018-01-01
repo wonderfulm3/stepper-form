@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="MobileStepElement">
+    <declare-styleable name="StepElement">
         <attr name="stepTitle" format="string" />
         <attr name="stepIcon" format="enum">
             <enum name="active" value="0" />

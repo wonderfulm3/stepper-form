@@ -1,4 +1,4 @@
-package io.tammen.stepper.widget;
+package io.tammen.stepper.widget.mobile;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -15,21 +15,21 @@ import io.tammen.stepper.R;
  *
  */
 
-public class MobileStepElement extends RelativeLayout implements View.OnClickListener {
+public class StepElement extends RelativeLayout implements View.OnClickListener {
 
-    public MobileStepElement(Context context) {
+    public StepElement(Context context) {
         this(context, null);
     }
 
-    public MobileStepElement(Context context, AttributeSet attributeSet) {
+    public StepElement(Context context, AttributeSet attributeSet) {
         this(context, attributeSet, 0);
     }
 
-    public MobileStepElement(Context context, AttributeSet attributeSet, int defStyleAttr) {
+    public StepElement(Context context, AttributeSet attributeSet, int defStyleAttr) {
         this(context, attributeSet, defStyleAttr, 0);
     }
 
-    public MobileStepElement(Context context, AttributeSet attributeSet, int defStyleAttr, int defStylesRes) {
+    public StepElement(Context context, AttributeSet attributeSet, int defStyleAttr, int defStylesRes) {
         super(context, attributeSet, defStyleAttr, defStylesRes);
         View view = inflate(context, R.layout.mobile_step_element, this);
 
@@ -42,15 +42,15 @@ public class MobileStepElement extends RelativeLayout implements View.OnClickLis
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attributeSet,
-                R.styleable.MobileStepElement,
+                R.styleable.StepElement,
                 0, 0);
         try {
-            String stepText = a.getString(R.styleable.MobileStepElement_stepTitle);
-            String subText = a.getString(R.styleable.MobileStepElement_stepSubtext);
-            String stepNumber = a.getString(R.styleable.MobileStepElement_stepNumber);
+            String stepText = a.getString(R.styleable.StepElement_stepTitle);
+            String subText = a.getString(R.styleable.StepElement_stepSubtext);
+            String stepNumber = a.getString(R.styleable.StepElement_stepNumber);
 
-            MobileStepIcon mobileStepIcon = MobileStepIcon.valueOf(a.getInteger(R.styleable.MobileStepElement_stepIcon, 0));
-            switch (mobileStepIcon) {
+            StepIcon stepIcon = StepIcon.valueOf(a.getInteger(R.styleable.StepElement_stepIcon, 0));
+            switch (stepIcon) {
                 case EDIT:
                 case ACTIVE:
                     tvIcon.setBackgroundResource(R.drawable.ic_default_circle);

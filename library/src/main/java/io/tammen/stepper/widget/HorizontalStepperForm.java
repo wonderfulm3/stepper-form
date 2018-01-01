@@ -1,4 +1,4 @@
-package io.tammen.stepper;
+package io.tammen.stepper.widget;
 
 /**
  * Created by Tammen Bruccoleri on 12/29/2017.

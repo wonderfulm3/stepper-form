@@ -1,4 +1,4 @@
-package io.tammen.stepper.widget;
+package io.tammen.stepper.widget.mobile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.Map;
  *
  */
 
-public enum MobileStepIcon {
+public enum StepIcon {
     ACTIVE(0),
     INACTIVE(1),
     EDIT(2),
@@ -19,19 +19,19 @@ public enum MobileStepIcon {
     private static Map map = new HashMap<>();
 
     static {
-        for (MobileStepIcon mobileStepIcon : MobileStepIcon.values()) {
-            map.put(mobileStepIcon.value, mobileStepIcon);
+        for (StepIcon stepIcon : StepIcon.values()) {
+            map.put(stepIcon.value, stepIcon);
         }
     }
 
     private int value;
 
-    MobileStepIcon(int value) {
+    StepIcon(int value) {
         this.value = value;
     }
 
-    public static MobileStepIcon valueOf(int mobileStepIcon) {
-        return (MobileStepIcon) map.get(mobileStepIcon);
+    public static StepIcon valueOf(int mobileStepIcon) {
+        return (StepIcon) map.get(mobileStepIcon);
     }
 
     public int getValue() {
