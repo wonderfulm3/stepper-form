@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * Created by Tammen Bruccoleri on 12/31/2017.
+ *
  */
 
 public enum MobileStepIcon {
@@ -12,7 +13,8 @@ public enum MobileStepIcon {
     INACTIVE(1),
     EDIT(2),
     ERROR(3),
-    CHECKED(4);
+    CHECKED(4),
+    ERROR_ACTIVE(5);
 
     private static Map map = new HashMap<>();
 

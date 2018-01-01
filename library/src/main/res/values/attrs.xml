@@ -8,7 +8,9 @@
             <enum name="edit" value="2" />
             <enum name="error" value="3" />
             <enum name="checked" value="4" />
+            <enum name="errorActive" value="5" />
         </attr>
         <attr name="stepSubtext" format="string" />
+        <attr name="stepNumber" format="string" />
     </declare-styleable>
 </resources>

@@ -10,5 +10,8 @@
 
     <!-- private strings which may NOT be modified -->
     <string name="io.ta.test.3" translatable="false">3</string>
+
+    <!-- private mock strings -->
+    <string name="io.ta.mobile.subtext.alert.message">Alert message</string>
     <string name="io.ta.mobile.step.placeholder" translatable="false">Some active step name</string>
 </resources>
