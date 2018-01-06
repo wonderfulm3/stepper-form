@@ -5,6 +5,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+
 import io.tammen.stepper.R;
 
 /**
@@ -13,6 +15,7 @@ import io.tammen.stepper.R;
  */
 
 public class VerticalForm extends RelativeLayout implements View.OnClickListener {
+    private ArrayList<StepElementDetail> stepElementDetails = null;
 
     public VerticalForm(Context context) {
         this(context, null);
@@ -28,11 +31,20 @@ public class VerticalForm extends RelativeLayout implements View.OnClickListener
 
     public VerticalForm(Context context, AttributeSet attributeSet, int defStyleAttr, int defStylesRes) {
         super(context, attributeSet, defStyleAttr, defStylesRes);
-        inflate(context, R.layout.vertical_stepper_form, this);
+        inflate(context, R.layout.mobile_vertical_stepper, this);
     }
 
     @Override
     public void onClick(View v) {
 
+    }
+
+    public void setStepElementDetail(ArrayList<StepElementDetail> stepElementDetail) {
+        if (stepElementDetail != null && stepElementDetail.size() > 0) {
+            //TODO need to build out the layout dynamically off here...
+            this.stepElementDetails = stepElementDetail;
+        } else {
+            //TODO throw an exception
+        }
     }
 }

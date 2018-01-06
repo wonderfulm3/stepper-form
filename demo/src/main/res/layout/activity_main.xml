@@ -8,7 +8,8 @@
     tools:context="io.tammen.stepperform.MainActivity">
 
     <io.tammen.stepper.widget.mobile.VerticalForm
+        android:id="@+id/vertical_example"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></io.tammen.stepper.widget.mobile.VerticalForm>
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

@@ -28,7 +28,7 @@ public class StepperForm extends RelativeLayout implements View.OnClickListener 
 
     public StepperForm(Context context, AttributeSet attributeSet, int defStyleAttr, int defStylesRes) {
         super(context, attributeSet, defStyleAttr, defStylesRes);
-        inflate(context, R.layout.mobile_stepper_form, this);
+        inflate(context, R.layout.mobile_stepper, this);
     }
 
     @Override
