@@ -10,10 +10,11 @@ import io.tammen.stepper.widget.mobile.VerticalForm;
 
 /**
  * Created by Tammen Bruccoleri on 12/28/2017.
+ *
  */
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<StepElementDetail> stepElementDetails = new ArrayList<>();
+    private final ArrayList<StepElementDetail> stepElementDetails = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
