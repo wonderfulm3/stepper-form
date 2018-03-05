@@ -12,5 +12,6 @@
         </attr>
         <attr name="stepSubtext" format="string" />
         <attr name="stepNumber" format="string" />
+        <attr name="stepOptional" format="boolean" />
     </declare-styleable>
 </resources>

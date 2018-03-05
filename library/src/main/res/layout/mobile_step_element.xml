@@ -18,7 +18,7 @@
     <TextView
         android:id="@+id/row_element_title"
         style="@style/io_ta_stepper_form_style_inactive_step"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginEnd="@dimen/io.ta.stepper.form.24dp"
@@ -30,7 +30,7 @@
     <TextView
         android:id="@+id/row_element_subtext"
         style="@style/io_ta_stepper_form_style_optional_step"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/row_element_title"
         android:layout_marginEnd="@dimen/io.ta.stepper.form.24dp"

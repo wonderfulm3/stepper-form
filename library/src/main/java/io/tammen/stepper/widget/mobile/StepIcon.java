@@ -1,7 +1,6 @@
 package io.tammen.stepper.widget.mobile;
 
-import java.util.HashMap;
-import java.util.Map;
+import android.util.SparseArray;
 
 /**
  * Created by Tammen Bruccoleri on 12/31/2017.
@@ -16,7 +15,7 @@ public enum StepIcon {
     CHECKED(4),
     ERROR_ACTIVE(5);
 
-    private static Map map = new HashMap<>();
+    private static SparseArray<StepIcon> map = new SparseArray<>();
 
     static {
         for (StepIcon stepIcon : StepIcon.values()) {
@@ -31,7 +30,7 @@ public enum StepIcon {
     }
 
     public static StepIcon valueOf(int mobileStepIcon) {
-        return (StepIcon) map.get(mobileStepIcon);
+        return map.get(mobileStepIcon);
     }
 
     public int getValue() {

@@ -4,17 +4,20 @@ import io.tammen.stepper.R;
 
 /**
  * Created by Tammen Bruccoleri on 1/5/2018.
+ *
  */
 
 public class StepElementDetail {
     private String stepTitle, stepSubText;
     private int stepNumber, stepIcon;
+    private boolean stepOptional;
 
     private StepElementDetail(StepElementBuilder builder) {
         this.stepNumber = builder.stepNumber;
         this.stepIcon = builder.stepIcon;
         this.stepTitle = builder.stepTitle;
         this.stepSubText = builder.stepSubText;
+        this.stepOptional = builder.stepOptional;
     }
 
     int getStepNumber() {
@@ -38,6 +41,7 @@ public class StepElementDetail {
         private int stepNumber = 0;
         private String stepTitle;
         private String stepSubText;
+        private boolean stepOptional;
 
 
         public StepElementBuilder(int stepNumber) {
@@ -56,6 +60,11 @@ public class StepElementDetail {
 
         public StepElementBuilder stepSubText(String stepSubText) {
             this.stepSubText = stepSubText;
+            return this;
+        }
+
+        public StepElementBuilder stepOptional(boolean stepOptional) {
+            this.stepOptional = stepOptional;
             return this;
         }
 

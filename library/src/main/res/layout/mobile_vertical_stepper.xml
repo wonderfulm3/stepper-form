@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line_1"
-        app:stepIcon="inactive"
+        app:stepIcon="checked"
         app:stepNumber="2"
         app:stepTitle="Step 2" />
 
@@ -64,7 +64,43 @@
         android:layout_below="@+id/line_3"
         app:stepIcon="inactive"
         app:stepNumber="4"
-        app:stepSubtext="You may skip this step"
+        app:stepSubtext="Step with Subtext"
         app:stepTitle="Step 4" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/line_4"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_below="@id/io_ta_step_4"
+        android:layout_marginStart="36dp"
+        android:background="@drawable/ic_vertical_layer_line" />
+
+    <io.tammen.stepper.widget.mobile.StepElement
+        android:id="@+id/io_ta_step_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line_4"
+        app:stepIcon="edit"
+        app:stepNumber="5"
+        app:stepSubtext="An Edit step"
+        app:stepTitle="Step 5" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/line_5"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_below="@id/io_ta_step_5"
+        android:layout_marginStart="36dp"
+        android:background="@drawable/ic_vertical_layer_line" />
+
+    <io.tammen.stepper.widget.mobile.StepElement
+        android:id="@+id/io_ta_step_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line_5"
+        app:stepIcon="inactive"
+        app:stepNumber="6"
+        app:stepOptional="true"
+        app:stepTitle="Step 6" />
 
 </RelativeLayout>

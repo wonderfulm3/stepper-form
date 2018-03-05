@@ -46,12 +46,16 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
                 0, 0);
         try {
             String stepText = a.getString(R.styleable.StepElement_stepTitle);
-            String subText = a.getString(R.styleable.StepElement_stepSubtext);
+            String stepSubText = a.getString(R.styleable.StepElement_stepSubtext);
             String stepNumber = a.getString(R.styleable.StepElement_stepNumber);
+            boolean stepOptional = a.getBoolean(R.styleable.StepElement_stepOptional, false);
 
             StepIcon stepIcon = StepIcon.valueOf(a.getInteger(R.styleable.StepElement_stepIcon, 0));
             switch (stepIcon) {
                 case EDIT:
+                    tvIcon.setBackgroundResource(R.drawable.ic_edit_circle);
+                    tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_active_step);
+                    break;
                 case ACTIVE:
                     tvIcon.setBackgroundResource(R.drawable.ic_default_circle);
                     tvIcon.setText(stepNumber);
@@ -64,13 +68,13 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
                     break;
                 case ERROR_ACTIVE:
                     tvIcon.setBackgroundResource(R.drawable.ic_alert);
-                    subText = getResources().getString(R.string.io_ta_mobile_subtext_alert_message);
+                    stepSubText = getResources().getString(R.string.io_ta_mobile_subtext_alert_message);
                     tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_active_error_step);
                     tvSubText.setTextAppearance(R.style.io_ta_stepper_form_style_error_subtext);
                     break;
                 case ERROR:
                     tvIcon.setBackgroundResource(R.drawable.ic_alert);
-                    subText = getResources().getString(R.string.io_ta_mobile_subtext_alert_message);
+                    stepSubText = getResources().getString(R.string.io_ta_mobile_subtext_alert_message);
                     tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_error_step);
                     tvSubText.setTextAppearance(R.style.io_ta_stepper_form_style_error_subtext);
                     break;
@@ -85,10 +89,17 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
                     break;
             }
             tvTitle.setText(stepText);
-            if (subText != null) {
+            if (stepSubText != null || stepOptional) {
                 addOrRemoveProperty(tvTitle, RelativeLayout.CENTER_IN_PARENT, false);
                 tvSubText.setVisibility(View.VISIBLE);
-                tvSubText.setText(subText);
+
+                //If the step is Optional && no step subtext is provided
+                // default of "Optional" subtext will be provided (at no additional cost)
+                if (stepOptional && stepSubText == null) {
+                    tvSubText.setText(R.string.io_ta_optional_step);
+                } else {
+                    tvSubText.setText(stepSubText);
+                }
             }
         } finally {
             a.recycle();

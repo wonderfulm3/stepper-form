@@ -14,22 +14,22 @@ import io.tammen.stepper.R;
  *
  */
 
-public class VerticalForm extends RelativeLayout implements View.OnClickListener {
+public class Vertical extends RelativeLayout implements View.OnClickListener {
     private ArrayList<StepElementDetail> stepElementDetails = null;
 
-    public VerticalForm(Context context) {
+    public Vertical(Context context) {
         this(context, null);
     }
 
-    public VerticalForm(Context context, AttributeSet attributeSet) {
+    public Vertical(Context context, AttributeSet attributeSet) {
         this(context, attributeSet, 0);
     }
 
-    public VerticalForm(Context context, AttributeSet attributeSet, int defStyleAttr) {
+    public Vertical(Context context, AttributeSet attributeSet, int defStyleAttr) {
         this(context, attributeSet, defStyleAttr, 0);
     }
 
-    public VerticalForm(Context context, AttributeSet attributeSet, int defStyleAttr, int defStylesRes) {
+    public Vertical(Context context, AttributeSet attributeSet, int defStyleAttr, int defStylesRes) {
         super(context, attributeSet, defStyleAttr, defStylesRes);
         inflate(context, R.layout.mobile_vertical_stepper, this);
     }
@@ -44,7 +44,7 @@ public class VerticalForm extends RelativeLayout implements View.OnClickListener
             //TODO need to build out the layout dynamically off here...
             this.stepElementDetails = stepElementDetail;
         } else {
-            //TODO throw an exception
+            //TODO throw an exception or bake a cake
         }
     }
 }
