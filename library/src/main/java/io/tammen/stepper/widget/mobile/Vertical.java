@@ -42,6 +42,8 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
     public void setStepElementDetail(ArrayList<StepElementDetail> stepElementDetail) {
         if (stepElementDetail != null && stepElementDetail.size() > 0) {
             //TODO need to build out the layout dynamically off here...
+            //Coming in the next week
+            // TODO need to handle animation of growing and collapse of step
             this.stepElementDetails = stepElementDetail;
         } else {
             //TODO throw an exception or bake a cake
