@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    android:background="@color/io.ta.white">
+    android:animateLayoutChanges="true">
 
     <io.tammen.stepper.widget.mobile.StepElement
         android:id="@+id/io_ta_step_1"

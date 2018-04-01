@@ -38,7 +38,7 @@ public class StepElementDetail {
 
     public static class StepElementBuilder {
         private int stepIcon = R.drawable.ic_default_circle; //Default drawable icon
-        private int stepNumber = 0;
+        private int stepNumber;
         private String stepTitle;
         private String stepSubText;
         private boolean stepOptional;

@@ -2,11 +2,13 @@ package io.tammen.stepperform;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import io.tammen.stepper.widget.mobile.StepElementDetail;
 import io.tammen.stepper.widget.mobile.Vertical;
+import io.tammen.stepper.widget.mobile.exception.StepperElementException;
 
 /**
  * Created by Tammen Bruccoleri on 12/28/2017.
@@ -33,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
         stepElementDetails.add(step1);
         stepElementDetails.add(step2);
-        vertical.setStepElementDetail(stepElementDetails);
+
+        try {
+            vertical.setStepElementDetail(stepElementDetails);
+        } catch (StepperElementException ex) {
+            Toast.makeText(this, "Error: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    android:background="@color/io.ta.white">
+    android:animateLayoutChanges="true">
 
     <RelativeLayout
         android:id="@+id/rl_step_text"
