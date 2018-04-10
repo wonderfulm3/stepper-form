@@ -9,7 +9,9 @@ import io.tammen.stepper.R;
 
 public class StepElementDetail {
     private String stepTitle, stepSubText;
-    private int stepNumber, stepIcon;
+    private int stepNumber;
+    private @StepIcon.StepIconInterface
+    int stepIcon;
     private boolean stepOptional;
 
     private StepElementDetail(StepElementBuilder builder) {
@@ -24,6 +26,7 @@ public class StepElementDetail {
         return stepNumber;
     }
 
+    @StepIcon.StepIconInterface
     int getStepIcon() {
         return stepIcon;
     }
@@ -48,7 +51,7 @@ public class StepElementDetail {
             this.stepNumber = stepNumber;
         }
 
-        public StepElementBuilder stepIcon(int stepIcon) {
+        public StepElementBuilder stepIcon(@StepIcon.StepIconInterface int stepIcon) {
             this.stepIcon = stepIcon;
             return this;
         }

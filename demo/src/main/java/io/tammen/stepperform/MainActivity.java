@@ -7,6 +7,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import io.tammen.stepper.widget.mobile.StepElementDetail;
+import io.tammen.stepper.widget.mobile.StepIcon;
 import io.tammen.stepper.widget.mobile.Vertical;
 import io.tammen.stepper.widget.mobile.exception.StepperElementException;
 
@@ -25,11 +26,12 @@ public class MainActivity extends AppCompatActivity {
         Vertical vertical = findViewById(R.id.vertical_example);
 
         StepElementDetail step1 = new StepElementDetail.StepElementBuilder(1)
-                .stepIcon(R.drawable.ic_default_circle)
-                .stepTitle("This is a first step")
+                .stepIcon(StepIcon.ACTIVE)
+                .stepTitle("This is a first step example")
                 .build();
 
         StepElementDetail step2 = new StepElementDetail.StepElementBuilder(2)
+                .stepIcon(StepIcon.ERROR)
                 .stepTitle("This is a second step")
                 .build();
 

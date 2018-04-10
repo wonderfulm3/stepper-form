@@ -2,7 +2,9 @@ package io.tammen.stepper.widget.mobile;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,6 +18,9 @@ import io.tammen.stepper.R;
  */
 
 public class StepElement extends RelativeLayout implements View.OnClickListener {
+    private final String TAG = this.getClass().getSimpleName();
+    private TextView tvIcon, tvTitle, tvSubText;
+    private String stepSubText;
 
     public StepElement(Context context) {
         this(context, null);
@@ -36,9 +41,9 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
         RelativeLayout rlRowElement = view.findViewById(R.id.rl_row_element);
         rlRowElement.setOnClickListener(this);
 
-        TextView tvIcon = view.findViewById(R.id.row_element_icon);
-        TextView tvTitle = view.findViewById(R.id.row_element_title);
-        TextView tvSubText = view.findViewById(R.id.row_element_subtext);
+        tvIcon = view.findViewById(R.id.row_element_icon);
+        tvTitle = view.findViewById(R.id.row_element_title);
+        tvSubText = view.findViewById(R.id.row_element_subtext);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attributeSet,
@@ -46,48 +51,13 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
                 0, 0);
         try {
             String stepText = a.getString(R.styleable.StepElement_stepTitle);
-            String stepSubText = a.getString(R.styleable.StepElement_stepSubtext);
-            String stepNumber = a.getString(R.styleable.StepElement_stepNumber);
+            stepSubText = a.getString(R.styleable.StepElement_stepSubtext);
+            int stepNumber = a.getInt(R.styleable.StepElement_stepNumber, 0);
             boolean stepOptional = a.getBoolean(R.styleable.StepElement_stepOptional, false);
 
-            StepIcon stepIcon = StepIcon.valueOf(a.getInteger(R.styleable.StepElement_stepIcon, 0));
-            switch (stepIcon) {
-                case EDIT:
-                    tvIcon.setBackgroundResource(R.drawable.ic_edit_circle);
-                    tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_active_step);
-                    break;
-                case ACTIVE:
-                    tvIcon.setBackgroundResource(R.drawable.ic_default_circle);
-                    tvIcon.setText(stepNumber);
-                    tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_active_step);
-                    break;
-                case INACTIVE:
-                    tvIcon.setBackgroundResource(R.drawable.ic_inactive_circle);
-                    tvIcon.setText(stepNumber);
-                    tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_step);
-                    break;
-                case ERROR_ACTIVE:
-                    tvIcon.setBackgroundResource(R.drawable.ic_alert);
-                    stepSubText = getResources().getString(R.string.io_ta_mobile_subtext_alert_message);
-                    tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_active_error_step);
-                    tvSubText.setTextAppearance(R.style.io_ta_stepper_form_style_error_subtext);
-                    break;
-                case ERROR:
-                    tvIcon.setBackgroundResource(R.drawable.ic_alert);
-                    stepSubText = getResources().getString(R.string.io_ta_mobile_subtext_alert_message);
-                    tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_error_step);
-                    tvSubText.setTextAppearance(R.style.io_ta_stepper_form_style_error_subtext);
-                    break;
-                case CHECKED:
-                    tvIcon.setBackgroundResource(R.drawable.ic_checkmark_circle_done);
-                    tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_step);
-                    break;
-                default:
-                    tvIcon.setBackgroundResource(R.drawable.ic_inactive_circle);
-                    tvIcon.setText(stepNumber);
-                    tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_step);
-                    break;
-            }
+            @StepIcon.StepIconInterface int stepIcon = a.getInteger(R.styleable.StepElement_stepIcon, 0);
+            setStepIcon(stepIcon, stepNumber);
+
             tvTitle.setText(stepText);
             if (stepSubText != null || stepOptional) {
                 addOrRemoveProperty(tvTitle, RelativeLayout.CENTER_IN_PARENT, false);
@@ -112,7 +82,66 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
         if (i == R.id.rl_row_element) {
             TextView stepTitle = v.findViewById(R.id.row_element_title);
             Toast.makeText(v.getContext(), "Tapped on: " + stepTitle.getText(), Toast.LENGTH_LONG).show();
+            setTvTitle("Updated text on title");
+            setStepIcon(StepIcon.CHECKED, 0);
         }
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Log.d(TAG, "onDraw being called");
+    }
+
+    // ------- Methods that are part of the Step Element interface --------------->
+    public void setStepIcon(@StepIcon.StepIconInterface int stepIcon, int stepNumber) {
+        switch (stepIcon) {
+            case StepIcon.EDIT:
+                tvIcon.setBackgroundResource(R.drawable.ic_edit_circle);
+                tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_active_step);
+                break;
+            case StepIcon.ACTIVE:
+                tvIcon.setBackgroundResource(R.drawable.ic_default_circle);
+                tvIcon.setText(String.valueOf(stepNumber));
+                tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_active_step);
+                break;
+            case StepIcon.INACTIVE:
+                tvIcon.setBackgroundResource(R.drawable.ic_inactive_circle);
+                tvIcon.setText(stepNumber);
+                tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_step);
+                break;
+            case StepIcon.ERROR_ACTIVE:
+                tvIcon.setBackgroundResource(R.drawable.ic_alert);
+                stepSubText = getResources().getString(R.string.io_ta_mobile_subtext_alert_message);
+                tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_active_error_step);
+                tvSubText.setTextAppearance(R.style.io_ta_stepper_form_style_error_subtext);
+                break;
+            case StepIcon.ERROR:
+                tvIcon.setText("");
+                tvIcon.setBackgroundResource(R.drawable.ic_alert);
+                stepSubText = getResources().getString(R.string.io_ta_mobile_subtext_alert_message);
+                tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_error_step);
+                tvSubText.setTextAppearance(R.style.io_ta_stepper_form_style_error_subtext);
+                break;
+            case StepIcon.CHECKED:
+                tvIcon.setText("");
+                tvIcon.setBackgroundResource(R.drawable.ic_checkmark_circle_done);
+                tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_step);
+                break;
+            default:
+                tvIcon.setBackgroundResource(R.drawable.ic_inactive_circle);
+                tvIcon.setText(stepNumber);
+                tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_step);
+                break;
+        }
+        invalidate();
+        requestLayout();
+    }
+
+    void setTvTitle(String stepTitle) {
+        Log.d(TAG, "setTvTitle called");
+        tvTitle.setText(stepTitle);
+        invalidate();
+        requestLayout();
     }
 
     private void addOrRemoveProperty(View view, int property, boolean flag) {

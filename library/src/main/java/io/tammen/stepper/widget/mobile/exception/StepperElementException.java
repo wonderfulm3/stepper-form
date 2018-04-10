@@ -3,7 +3,7 @@ package io.tammen.stepper.widget.mobile.exception;
 /**
  * Created by Tammen Bruccoleri on 3/26/2018.
  */
-public class StepperElementException extends RuntimeException {
+public class StepperElementException extends Exception {
 
     private final AnnotationErrorCode annotationErrorCode;
 

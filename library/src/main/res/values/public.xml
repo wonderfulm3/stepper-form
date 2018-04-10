@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <public name="io.ta.step_back" type="string" />
+    <public name="io_ta_step_back" type="string" />
 </resources>

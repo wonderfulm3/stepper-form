@@ -6,35 +6,35 @@
     <style name="io_ta_stepper_form_style_active_circle">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/io.ta.stepper.form.12sp</item>
+        <item name="android:textSize">@dimen/io_ta_stepper_form_12sp</item>
     </style>
 
     <style name="io_ta_stepper_form_style_active_step">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/io.ta.stepper.form.14sp</item>
-        <item name="android:textColor">@color/io.ta.black.87.percent</item>
+        <item name="android:textSize">@dimen/io_ta_stepper_form_14sp</item>
+        <item name="android:textColor">@color/io_ta_black_87_percent</item>
     </style>
 
     <style name="io_ta_stepper_form_style_non_touch_step">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/io.ta.stepper.form.14sp</item>
-        <item name="android:textColor">@color/io.ta.black.38.percent</item>
+        <item name="android:textSize">@dimen/io_ta_stepper_form_14sp</item>
+        <item name="android:textColor">@color/io_ta_black_38_percent</item>
     </style>
 
     <style name="io_ta_stepper_form_style_inactive_step">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/io.ta.stepper.form.14sp</item>
-        <item name="android:textColor">@color/io.ta.black.87.percent</item>
+        <item name="android:textSize">@dimen/io_ta_stepper_form_14sp</item>
+        <item name="android:textColor">@color/io_ta_black_87_percent</item>
     </style>
 
     <style name="io_ta_stepper_form_style_inactive_error_step">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/io.ta.stepper.form.14sp</item>
-        <item name="android:textColor">@color/io.ta.red.700</item>
+        <item name="android:textSize">@dimen/io_ta_stepper_form_14sp</item>
+        <item name="android:textColor">@color/io_ta_red_700</item>
     </style>
 
     <style name="io_ta_stepper_form_style_active_error_step" parent="io_ta_stepper_form_style_inactive_error_step">
@@ -44,27 +44,27 @@
     <style name="io_ta_stepper_form_style_error_subtext">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/io.ta.stepper.form.12sp</item>
-        <item name="android:textColor">@color/io.ta.red.700</item>
+        <item name="android:textSize">@dimen/io_ta_stepper_form_12sp</item>
+        <item name="android:textColor">@color/io_ta_red_700</item>
     </style>
 
     <style name="io_ta_stepper_form_style_optional_step">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/io.ta.stepper.form.12sp</item>
-        <item name="android:textColor">@color/io.ta.black.54.percent</item>
+        <item name="android:textSize">@dimen/io_ta_stepper_form_12sp</item>
+        <item name="android:textColor">@color/io_ta_black_54_percent</item>
     </style>
 
     <style name="io_ta_stepper_form_style_step_text_enabled">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/io.ta.stepper.form.18sp</item>
-        <item name="android:textColor">@color/io.ta.black.54.percent</item>
+        <item name="android:textSize">@dimen/io_ta_stepper_form_18sp</item>
+        <item name="android:textColor">@color/io_ta_black_54_percent</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="io_ta_stepper_form_style_step_text_disabled" parent="io_ta_stepper_form_style_step_text_enabled">
-        <item name="android:textColor">@color/io.ta.black.38.percent</item>
-        <item name="android:drawableTint">@color/io.ta.black.38.percent</item>
+        <item name="android:textColor">@color/io_ta_black_38_percent</item>
+        <item name="android:drawableTint">@color/io_ta_black_38_percent</item>
     </style>
 </resources>

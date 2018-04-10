@@ -2,18 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_row_element"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true">
 
     <TextView
         android:id="@+id/row_element_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/io.ta.stepper.form.24dp"
         android:background="@drawable/ic_default_circle"
         android:gravity="center"
-        android:textColor="@color/io.ta.white"
-        android:textSize="@dimen/io.ta.stepper.form.12sp" />
+        android:textColor="@color/io_ta_white"
+        android:textSize="@dimen/io_ta_stepper_form_12sp" />
 
     <TextView
         android:id="@+id/row_element_title"
@@ -21,11 +21,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginEnd="@dimen/io.ta.stepper.form.24dp"
-        android:layout_marginStart="@dimen/io.ta.stepper.form.12dp"
+        android:layout_marginEnd="@dimen/io_ta_stepper_form_24dp"
+        android:layout_marginStart="@dimen/io_ta_stepper_form_12dp"
         android:layout_toEndOf="@+id/row_element_icon"
         android:gravity="start"
-        android:text="@string/io.ta.mobile.step.placeholder" />
+        android:text="@string/io_ta_mobile_step_placeholder" />
 
     <TextView
         android:id="@+id/row_element_subtext"
@@ -33,8 +33,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/row_element_title"
-        android:layout_marginEnd="@dimen/io.ta.stepper.form.24dp"
-        android:layout_marginStart="@dimen/io.ta.stepper.form.12dp"
+        android:layout_marginEnd="@dimen/io_ta_stepper_form_24dp"
+        android:layout_marginStart="@dimen/io_ta_stepper_form_12dp"
         android:layout_toEndOf="@+id/row_element_icon"
         android:gravity="start"
         android:visibility="gone" />

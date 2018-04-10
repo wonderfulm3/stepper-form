@@ -6,7 +6,7 @@
     android:viewportWidth="24">
 
     <path
-        android:fillColor="@color/io.ta.black.54.percent"
+        android:fillColor="@color/io_ta_black_54_percent"
         android:pathData="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z" />
     <path android:pathData="M0-.5h24v24H0z" />
 </vector>

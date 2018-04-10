@@ -4,15 +4,15 @@
 
     <!-- private styles which may NOT be modified -->
     <style name="io_ta_stepper_form_active_step_circle">
-        <item name="android:textSize">@dimen/io.ta.stepper.form.12sp</item>
-        <item name="android:textColor">@color/io.ta.blue.500</item>
+        <item name="android:textSize">@dimen/io_ta_stepper_form_12sp</item>
+        <item name="android:textColor">@color/io_ta_blue_500</item>
     </style>
 
     <style name="io_ta_stepper_form_inactive_step_circle" parent="io_ta_stepper_form_active_step_circle">
-        <item name="android:textColor">@color/io.ta.white</item>
+        <item name="android:textColor">@color/io_ta_white</item>
     </style>
 
     <style name="io_ta_stepper_form_optional_step" parent="io_ta_stepper_form_active_step_circle">
-        <item name="android:textColor">@color/io.ta.black.54.percent</item>
+        <item name="android:textColor">@color/io_ta_black_54_percent</item>
     </style>
 </resources>

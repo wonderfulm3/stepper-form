@@ -10,24 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/io.ta.black.10.percent"
+        android:background="@color/io_ta_black_10_percent"
         android:visibility="visible">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/io.ta.stepper.form.16dp"
+            android:paddingBottom="@dimen/io_ta_stepper_form_16dp"
             android:paddingEnd="0dp"
-            android:paddingStart="@dimen/io.ta.stepper.form.24dp"
-            android:paddingTop="@dimen/io.ta.stepper.form.16dp"
-            android:text="@string/io.ta.step_of" />
+            android:paddingStart="@dimen/io_ta_stepper_form_24dp"
+            android:paddingTop="@dimen/io_ta_stepper_form_16dp"
+            android:text="@string/io_ta_step_of" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/io.ta.black.10.percent">
+        android:background="@color/io_ta_black_10_percent">
 
         <TextView
             android:id="@+id/io_ta_tv_step_back"
@@ -38,23 +38,23 @@
             android:drawableStart="@drawable/ic_keyboard_arrow_left"
             android:gravity="center"
             android:paddingEnd="0dp"
-            android:paddingStart="@dimen/io.ta.stepper.form.8dp"
-            android:text="@string/io.ta.step_back" />
+            android:paddingStart="@dimen/io_ta_stepper_form_8dp"
+            android:text="@string/io_ta_step_back" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/io.ta.stepper.form.24dp"
-            android:layout_marginStart="@dimen/io.ta.stepper.form.24dp"
+            android:layout_marginEnd="@dimen/io_ta_stepper_form_24dp"
+            android:layout_marginStart="@dimen/io_ta_stepper_form_24dp"
             android:layout_toEndOf="@+id/io_ta_tv_step_back"
             android:layout_toStartOf="@+id/io_ta_tv_step_next"
             android:indeterminate="false"
             android:max="100"
             android:minWidth="150dp"
             android:progress="66"
-            android:progressTint="@color/io.ta.blue.500" />
+            android:progressTint="@color/io_ta_blue_500" />
 
         <TextView
             android:id="@+id/io_ta_tv_step_next"
@@ -64,9 +64,9 @@
             android:layout_alignParentEnd="true"
             android:drawableEnd="@drawable/ic_keyboard_arrow_right"
             android:gravity="center"
-            android:paddingEnd="@dimen/io.ta.stepper.form.8dp"
+            android:paddingEnd="@dimen/io_ta_stepper_form_8dp"
             android:paddingStart="0dp"
-            android:text="@string/io.ta.step_next"
+            android:text="@string/io_ta_step_next"
             tools:ignore="RelativeOverlap" />
 
     </RelativeLayout>

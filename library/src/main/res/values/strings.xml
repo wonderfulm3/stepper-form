@@ -3,15 +3,15 @@
     <string name="title_activity_main">MainActivity</string>
 
     <!--public strings which may be modified -->
-    <string name="io.ta.step_back">Back</string>
-    <string name="io.ta.step_next">Next</string>
-    <string name="io.ta.step_of">Step 4 of 6</string>
-    <string name="io.ta.optional_step">Optional</string>
+    <string name="io_ta_step_back">Back</string>
+    <string name="io_ta_step_next">Next</string>
+    <string name="io_ta_step_of">Step 4 of 6</string>
+    <string name="io_ta_optional_step">Optional</string>
 
     <!-- private strings which may NOT be modified -->
-    <string name="io.ta.test.3" translatable="false">3</string>
+    <string name="io_ta_test_3" translatable="false">3</string>
 
     <!-- private mock strings -->
-    <string name="io.ta.mobile.subtext.alert.message">Alert message</string>
-    <string name="io.ta.mobile.step.placeholder" translatable="false">Some active step name</string>
+    <string name="io_ta_mobile_subtext_alert_message">Alert message</string>
+    <string name="io_ta_mobile_step_placeholder" translatable="false">Some active step name</string>
 </resources>

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--public dimens which may be modified -->
-    <dimen name="io.ta.stepper.form.14btn">14dp</dimen>
+    <dimen name="io_ta_stepper_form_14btn">14dp</dimen>
 
     <!-- private dimens which may NOT be modified -->
     <!-- sp section -->
-    <dimen name="io.ta.stepper.form.12sp">12sp</dimen>
-    <dimen name="io.ta.stepper.form.14sp">14sp</dimen>
-    <dimen name="io.ta.stepper.form.18sp">14sp</dimen>
+    <dimen name="io_ta_stepper_form_12sp">12sp</dimen>
+    <dimen name="io_ta_stepper_form_14sp">14sp</dimen>
+    <dimen name="io_ta_stepper_form_18sp">14sp</dimen>
 
     <!-- dp section -->
-    <dimen name="io.ta.stepper.form.1dp">1dp</dimen>
-    <dimen name="io.ta.stepper.form.8dp">8dp</dimen>
-    <dimen name="io.ta.stepper.form.12dp">12dp</dimen>
-    <dimen name="io.ta.stepper.form.16dp">16dp</dimen>
-    <dimen name="io.ta.stepper.form.24dp">24dp</dimen>
-    <dimen name="io.ta.stepper.form.icon.width" translatable="false">
-        @dimen/io.ta.stepper.form.24dp
+    <dimen name="io_ta_stepper_form_1dp">1dp</dimen>
+    <dimen name="io_ta_stepper_form_8dp">8dp</dimen>
+    <dimen name="io_ta_stepper_form_12dp">12dp</dimen>
+    <dimen name="io_ta_stepper_form_16dp">16dp</dimen>
+    <dimen name="io_ta_stepper_form_24dp">24dp</dimen>
+    <dimen name="io_ta_stepper_form_icon_width" translatable="false">
+        @dimen/io_ta_stepper_form_24dp
     </dimen>
-    <dimen name="io.ta.stepper.form.icon.height" translatable="false">
-        @dimen/io.ta.stepper.form.24dp
+    <dimen name="io_ta_stepper_form_icon_height" translatable="false">
+        @dimen/io_ta_stepper_form_24dp
     </dimen>
     <dimen name="fab_margin">16dp</dimen>
 </resources>
