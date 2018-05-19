@@ -1,5 +1,5 @@
 # Stepper Form
-A Material Design inspired stepper form. Derived specifications and attributes are taken from the Material Design document; which may be referenced [here](https://material.io/guidelines/components/steppers.html#steppers-usage).
+A Material Design inspired stepper form. Derived specifications and attributes are taken from the Material Design document; which may be referenced [here](https://material.io/archive/guidelines/components/steppers.html).
 
 _The journey of a thousand miles begins with one step. - Lao Tzu_
 

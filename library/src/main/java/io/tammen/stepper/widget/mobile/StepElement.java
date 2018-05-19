@@ -21,6 +21,7 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     private final String TAG = this.getClass().getSimpleName();
     private TextView tvIcon, tvTitle, tvSubText;
     private String stepSubText;
+    private StepElementDetail stepElementDetail = new StepElementDetail();
 
     public StepElement(Context context) {
         this(context, null);
@@ -52,11 +53,11 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
         try {
             String stepText = a.getString(R.styleable.StepElement_stepTitle);
             stepSubText = a.getString(R.styleable.StepElement_stepSubtext);
-            int stepNumber = a.getInt(R.styleable.StepElement_stepNumber, 0);
+            stepElementDetail.setStepNumber(a.getInt(R.styleable.StepElement_stepNumber, 0));
             boolean stepOptional = a.getBoolean(R.styleable.StepElement_stepOptional, false);
 
             @StepIcon.StepIconInterface int stepIcon = a.getInteger(R.styleable.StepElement_stepIcon, 0);
-            setStepIcon(stepIcon, stepNumber);
+            setStepIcon(stepIcon, stepElementDetail.stepNumber);
 
             tvTitle.setText(stepText);
             if (stepSubText != null || stepOptional) {
@@ -80,10 +81,19 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.rl_row_element) {
-            TextView stepTitle = v.findViewById(R.id.row_element_title);
-            Toast.makeText(v.getContext(), "Tapped on: " + stepTitle.getText(), Toast.LENGTH_LONG).show();
-            setTvTitle("Updated text on title");
-            setStepIcon(StepIcon.CHECKED, 0);
+            Toast.makeText(v.getContext(), "Tapped on: " + stepElementDetail.stepTitle, Toast.LENGTH_LONG).show();
+            if (stepElementDetail.isExpanded) {
+                stepElementDetail.isExpanded = false;
+                if (stepElementDetail.isDirty) {
+                    setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
+                }
+                Log.d(TAG, "Step " + stepElementDetail.stepNumber + " already expanded. Time to collapse");
+            } else {
+                stepElementDetail.isExpanded = true;
+                stepElementDetail.isDirty = true;
+                setStepIcon(StepIcon.EDIT, 0);
+                Log.d(TAG, "Step " + stepElementDetail.stepNumber + " is not expanded. Time to expand");
+            }
         }
     }
 
@@ -96,6 +106,7 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     public void setStepIcon(@StepIcon.StepIconInterface int stepIcon, int stepNumber) {
         switch (stepIcon) {
             case StepIcon.EDIT:
+                tvIcon.setText("");
                 tvIcon.setBackgroundResource(R.drawable.ic_edit_circle);
                 tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_active_step);
                 break;
@@ -106,7 +117,7 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
                 break;
             case StepIcon.INACTIVE:
                 tvIcon.setBackgroundResource(R.drawable.ic_inactive_circle);
-                tvIcon.setText(stepNumber);
+                tvIcon.setText(String.valueOf(stepNumber));
                 tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_step);
                 break;
             case StepIcon.ERROR_ACTIVE:
@@ -142,6 +153,10 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
         tvTitle.setText(stepTitle);
         invalidate();
         requestLayout();
+    }
+
+    void setStepElementDetails(StepElementDetail stepElementDetails) {
+        this.stepElementDetail = stepElementDetails;
     }
 
     private void addOrRemoveProperty(View view, int property, boolean flag) {

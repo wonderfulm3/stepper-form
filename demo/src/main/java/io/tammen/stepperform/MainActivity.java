@@ -1,6 +1,7 @@
 package io.tammen.stepperform;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -21,12 +22,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectAll()
+                .penaltyDialog()
+                .penaltyLog()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .build());
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Vertical vertical = findViewById(R.id.vertical_example);
 
         StepElementDetail step1 = new StepElementDetail.StepElementBuilder(1)
-                .stepIcon(StepIcon.ACTIVE)
+                .stepIcon(StepIcon.INACTIVE)
                 .stepTitle("This is a first step example")
                 .build();
 
