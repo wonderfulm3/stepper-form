@@ -35,6 +35,7 @@
         android:layout_below="@+id/row_element_title"
         android:layout_marginEnd="@dimen/io_ta_stepper_form_24dp"
         android:layout_marginStart="@dimen/io_ta_stepper_form_12dp"
+        android:layout_marginTop="@dimen/io_ta_stepper_form_8dp"
         android:layout_toEndOf="@+id/row_element_icon"
         android:gravity="start"
         android:visibility="gone" />

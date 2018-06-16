@@ -1,5 +1,8 @@
 package io.tammen.stepper.widget.mobile;
 
+import android.support.annotation.IntRange;
+import android.support.annotation.Size;
+
 import io.tammen.stepper.R;
 
 /**
@@ -8,7 +11,11 @@ import io.tammen.stepper.R;
  */
 
 public class StepElementDetail {
-    String stepTitle, stepSubText;
+    @Size(min = 1)
+    String stepTitle;
+    @Size(min = 1)
+    String stepSubText;
+    @IntRange(from = 1, to = 255)
     int stepNumber;
     boolean stepOptional;
     boolean isExpanded;
@@ -42,12 +49,12 @@ public class StepElementDetail {
 
     public static class StepElementBuilder {
         private int stepIcon = R.drawable.ic_default_circle; //Default drawable icon
-        private int stepNumber;
+        private final int stepNumber;
         private String stepTitle;
         private String stepSubText;
         private boolean stepOptional;
 
-        public StepElementBuilder(int stepNumber) {
+        public StepElementBuilder(@IntRange(from = 1, to = 255) int stepNumber) {
             this.stepNumber = stepNumber;
         }
 
@@ -56,12 +63,12 @@ public class StepElementDetail {
             return this;
         }
 
-        public StepElementBuilder stepTitle(String stepTitle) {
+        public StepElementBuilder stepTitle(@Size(min = 1) String stepTitle) {
             this.stepTitle = stepTitle;
             return this;
         }
 
-        public StepElementBuilder stepSubText(String stepSubText) {
+        public StepElementBuilder stepSubText(@Size(min = 1) String stepSubText) {
             this.stepSubText = stepSubText;
             return this;
         }

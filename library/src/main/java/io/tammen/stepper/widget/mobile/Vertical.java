@@ -1,8 +1,8 @@
 package io.tammen.stepper.widget.mobile;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
+import android.support.annotation.Size;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -22,12 +22,14 @@ import io.tammen.stepper.widget.mobile.exception.StepperElementException;
 
 public class Vertical extends RelativeLayout implements View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
-    private RelativeLayout relativeLayout;
-    int verticalBarWidth;
-    int verticalBarMarginTop = getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_8dp);
-    int verticalBarMargin = getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_36dp);
-    int margin = verticalBarWidth = getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_24dp);
-
+    private final int MIN_STEP_ELEMENT_SIZE = 2;
+    private final RelativeLayout relativeLayout;
+    private final int verticalBarMarginTop = getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_8dp);
+    private final int verticalBarMargin = getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_36dp);
+    private final AppCompatImageView ivWhenRenderException;
+    private int verticalBarWidth;
+    private final int margin = verticalBarWidth = getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_24dp);
+    @Size(min = 2)
     private ArrayList<StepElementDetail> stepElementDetails = null;
 
     public Vertical(Context context) {
@@ -45,6 +47,7 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
     public Vertical(Context context, AttributeSet attributeSet, int defStyleAttr, int defStylesRes) {
         super(context, attributeSet, defStyleAttr, defStylesRes);
         relativeLayout = (RelativeLayout) inflate(context, R.layout.mobile_vertical_stepper, this);
+        ivWhenRenderException = (relativeLayout).findViewById(R.id.step_element_exception);
     }
 
     @Override
@@ -60,15 +63,16 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     private void renderStepElements() {
         try {
-            if (stepElementDetails.size() > 0) {
+            if (stepElementDetails != null && stepElementDetails.size() >= MIN_STEP_ELEMENT_SIZE) {
                 //Draw StepElement's
                 drawStepElement();
             } else {
-                throw new StepperElementException("StepElementDetail may not be null or have a size <= 0",
+                throw new StepperElementException(getResources().getString(R.string.io_ta_mobile_exception_stepper_element_size_invalid),
                         new AnnotationErrorCode(AnnotationErrorCode.INVALID_ELEMENT_SIZE));
             }
         } catch (StepperElementException ex) {
             Log.e(TAG, "Exception: " + ex.getMessage());
+            ivWhenRenderException.setVisibility(VISIBLE);
         }
     }
 
@@ -78,12 +82,12 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
      * @param stepElementDetail ArrayList elements that contain build objects that represent the StepElementDetail
      * @throws StepperElementException Throws an Exception. Better catch/handle it...
      */
-    public void setStepElementDetail(@NonNull ArrayList<StepElementDetail> stepElementDetail) throws StepperElementException {
-        if (stepElementDetail.size() > 0) {
+    public void setStepElementDetail(@Size(min = 2) ArrayList<StepElementDetail> stepElementDetail) throws StepperElementException {
+        if (stepElementDetail.size() >= MIN_STEP_ELEMENT_SIZE) {
             Log.d(TAG, "Number of elements: " + stepElementDetail.size());
             this.stepElementDetails = stepElementDetail;
         } else {
-            throw new StepperElementException("StepElementDetail may not be null or have a size <= 0",
+            throw new StepperElementException(getResources().getString(R.string.io_ta_mobile_exception_stepper_element_size_invalid),
                     new AnnotationErrorCode(AnnotationErrorCode.INVALID_ELEMENT_SIZE));
         }
     }
@@ -95,6 +99,9 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     private void drawStepElement() {
+        if (ivWhenRenderException.getVisibility() == View.VISIBLE) {
+            ivWhenRenderException.setVisibility(View.GONE);
+        }
         Log.d(TAG, "Step Icon - 1 (int): " + stepElementDetails.get(0).getStepIcon());
         Log.d(TAG, "Layout width: " + relativeLayout.getWidth() + " height: " + relativeLayout.getHeight());
         int idValue = 1;
@@ -102,6 +109,8 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
         StepElement stepElement = new StepElement(this.getContext());
         stepElement.setTvTitle(stepElementDetails.get(0).stepTitle);
         stepElement.setStepIcon(stepElementDetails.get(0).getStepIcon(), stepElementDetails.get(0).stepNumber);
+        stepElement.invalidateAndRequestLayout();
+
         LayoutParams dimensions = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
         dimensions.topMargin = margin;
@@ -129,6 +138,8 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
         StepElement stepElement2 = new StepElement(this.getContext());
         stepElement2.setTvTitle(stepElementDetails.get(1).stepTitle);
         stepElement2.setStepIcon(stepElementDetails.get(1).getStepIcon(), stepElementDetails.get(1).stepNumber);
+        stepElement2.setTvSubText(stepElementDetails.get(1).stepSubText);
+        stepElement2.invalidateAndRequestLayout();
 
         LayoutParams dimensions1 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         dimensions1.addRule(RelativeLayout.BELOW, verticalSpace.getId());

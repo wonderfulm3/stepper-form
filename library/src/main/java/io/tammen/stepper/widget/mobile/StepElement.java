@@ -19,7 +19,7 @@ import io.tammen.stepper.R;
 
 public class StepElement extends RelativeLayout implements View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
-    private TextView tvIcon, tvTitle, tvSubText;
+    private final TextView tvIcon, tvTitle, tvSubText;
     private String stepSubText;
     private StepElementDetail stepElementDetail = new StepElementDetail();
 
@@ -151,6 +151,16 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     void setTvTitle(String stepTitle) {
         Log.d(TAG, "setTvTitle called");
         tvTitle.setText(stepTitle);
+    }
+
+    void setTvSubText(String stepSubText) {
+        Log.d(TAG, "setTvSubText called");
+        tvSubText.setText(stepSubText);
+        //By default this view is GONE (will need to set to GONE if subtext is empty)
+        tvSubText.setVisibility(View.VISIBLE);
+    }
+
+    void invalidateAndRequestLayout() {
         invalidate();
         requestLayout();
     }

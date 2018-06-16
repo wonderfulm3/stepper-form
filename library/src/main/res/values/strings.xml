@@ -14,4 +14,7 @@
     <!-- private mock strings -->
     <string name="io_ta_mobile_subtext_alert_message">Alert message</string>
     <string name="io_ta_mobile_step_placeholder" translatable="false">Some active step name</string>
+
+    <!-- private exceptions -->
+    <string name="io_ta_mobile_exception_stepper_element_size_invalid">StepElementDetail may not be null or have a size &lt;= 1</string>
 </resources>
