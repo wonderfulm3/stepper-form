@@ -19,6 +19,4 @@ public class StepElementValidator {
         }
         return instance;
     }
-
-
 }

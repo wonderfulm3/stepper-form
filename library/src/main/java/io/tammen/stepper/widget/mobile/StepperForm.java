@@ -9,7 +9,6 @@ import io.tammen.stepper.R;
 
 /**
  * Created by Tammen Bruccoleri on 12/29/2017.
- *
  */
 
 public class StepperForm extends RelativeLayout implements View.OnClickListener {

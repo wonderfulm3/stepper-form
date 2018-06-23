@@ -3,8 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true">
-
     <!-- Visible only when there is a drawing exception -->
+    <TextView
+        android:id="@+id/step_element_title_exception"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/step_element_exception"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/io_ta_stepper_form_12dp"
+        android:text="@string/io_ta_mobile_exception_stepper_element_size_invalid"
+        android:textColor="@color/io_ta_blue_500"
+        android:visibility="gone" />
+
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/step_element_exception"
         android:layout_width="100dp"

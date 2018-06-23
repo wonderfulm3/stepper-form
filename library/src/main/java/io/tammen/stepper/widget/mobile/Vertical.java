@@ -8,29 +8,28 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import io.tammen.stepper.R;
 import io.tammen.stepper.widget.mobile.exception.AnnotationErrorCode;
 import io.tammen.stepper.widget.mobile.exception.StepperElementException;
+import io.tammen.stepper.widget.mobile.render.VerticalEngine;
 
 /**
  * Created by Tammen Bruccoleri on 12/28/2017.
- *
  */
 
 public class Vertical extends RelativeLayout implements View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
     private final int MIN_STEP_ELEMENT_SIZE = 2;
     private final RelativeLayout relativeLayout;
-    private final int verticalBarMarginTop = getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_8dp);
-    private final int verticalBarMargin = getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_36dp);
     private final AppCompatImageView ivWhenRenderException;
-    private int verticalBarWidth;
-    private final int margin = verticalBarWidth = getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_24dp);
+    private final TextView tvStepElementTitleException;
+
     @Size(min = 2)
-    private ArrayList<StepElementDetail> stepElementDetails = null;
+    private ArrayList<StepElementDetail> stepElementDetailArrayList = null;
 
     public Vertical(Context context) {
         this(context, null);
@@ -48,6 +47,7 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
         super(context, attributeSet, defStyleAttr, defStylesRes);
         relativeLayout = (RelativeLayout) inflate(context, R.layout.mobile_vertical_stepper, this);
         ivWhenRenderException = (relativeLayout).findViewById(R.id.step_element_exception);
+        tvStepElementTitleException = (relativeLayout).findViewById(R.id.step_element_title_exception);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     private void renderStepElements() {
         try {
-            if (stepElementDetails != null && stepElementDetails.size() >= MIN_STEP_ELEMENT_SIZE) {
+            if (stepElementDetailArrayList != null && stepElementDetailArrayList.size() >= MIN_STEP_ELEMENT_SIZE) {
                 //Draw StepElement's
                 drawStepElement();
             } else {
@@ -72,20 +72,28 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
             }
         } catch (StepperElementException ex) {
             Log.e(TAG, "Exception: " + ex.getMessage());
-            ivWhenRenderException.setVisibility(VISIBLE);
+            ivWhenRenderException.setVisibility(View.VISIBLE);
+            tvStepElementTitleException.setVisibility(View.VISIBLE);
         }
     }
 
     /**
      * Initializer of the Vertical layout with Step Elements.
      *
-     * @param stepElementDetail ArrayList elements that contain build objects that represent the StepElementDetail
+     * @param stepElementDetailArrayList ArrayList elements that contain build objects that represent the StepElementDetail
      * @throws StepperElementException Throws an Exception. Better catch/handle it...
      */
-    public void setStepElementDetail(@Size(min = 2) ArrayList<StepElementDetail> stepElementDetail) throws StepperElementException {
-        if (stepElementDetail.size() >= MIN_STEP_ELEMENT_SIZE) {
-            Log.d(TAG, "Number of elements: " + stepElementDetail.size());
-            this.stepElementDetails = stepElementDetail;
+    public void setStepElementDetail(@Size(min = 2) ArrayList<StepElementDetail> stepElementDetailArrayList) throws StepperElementException {
+        if (stepElementDetailArrayList.size() >= MIN_STEP_ELEMENT_SIZE) {
+            Log.d(TAG, "Number of elements: " + stepElementDetailArrayList.size());
+
+            //Determining step number assignment based off array index
+            int size = stepElementDetailArrayList.size();
+            for (int i = 0; i < size; i++) {
+                stepElementDetailArrayList.get(i).setStepNumber(i + 1);
+            }
+
+            this.stepElementDetailArrayList = stepElementDetailArrayList;
         } else {
             throw new StepperElementException(getResources().getString(R.string.io_ta_mobile_exception_stepper_element_size_invalid),
                     new AnnotationErrorCode(AnnotationErrorCode.INVALID_ELEMENT_SIZE));
@@ -93,22 +101,30 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
     }
 
     /**
-     *
      * Renders the Step Element within the Vertical layout view.
-     *
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     private void drawStepElement() {
+        //Going from an exception to where we now have valid Stepper elements
         if (ivWhenRenderException.getVisibility() == View.VISIBLE) {
             ivWhenRenderException.setVisibility(View.GONE);
+            tvStepElementTitleException.setVisibility(View.GONE);
         }
-        Log.d(TAG, "Step Icon - 1 (int): " + stepElementDetails.get(0).getStepIcon());
-        Log.d(TAG, "Layout width: " + relativeLayout.getWidth() + " height: " + relativeLayout.getHeight());
-        int idValue = 1;
+
+        //TODO temp rendering for 1 element
+        for (int i = 0; i < stepElementDetailArrayList.size(); i++) {
+            if (i == 0) {
+                relativeLayout.addView(VerticalEngine.getInstance().renderStepElement(this.getContext(),
+                        this.stepElementDetailArrayList.get(i), i));
+            }
+        }
+
+        //TODO leaving for reference needs to be removed when above "todo" is completed
+        /*int idValue = 1;
         //Time to bust out the drawing
         StepElement stepElement = new StepElement(this.getContext());
-        stepElement.setTvTitle(stepElementDetails.get(0).stepTitle);
-        stepElement.setStepIcon(stepElementDetails.get(0).getStepIcon(), stepElementDetails.get(0).stepNumber);
+        stepElement.setTvTitle(stepElementDetailArrayList.get(0).stepTitle);
+        stepElement.setStepIcon(stepElementDetailArrayList.get(0).getStepIcon(), stepElementDetailArrayList.get(0).stepNumber);
         stepElement.invalidateAndRequestLayout();
 
         LayoutParams dimensions = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -118,7 +134,7 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
 
         stepElement.setLayoutParams(dimensions);
         stepElement.setId(idValue);
-        stepElement.setStepElementDetails(stepElementDetails.get(0));
+        stepElement.setStepElementDetails(stepElementDetailArrayList.get(0));
 
         relativeLayout.addView(stepElement);
 
@@ -136,9 +152,9 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
         relativeLayout.addView(verticalSpace);
 
         StepElement stepElement2 = new StepElement(this.getContext());
-        stepElement2.setTvTitle(stepElementDetails.get(1).stepTitle);
-        stepElement2.setStepIcon(stepElementDetails.get(1).getStepIcon(), stepElementDetails.get(1).stepNumber);
-        stepElement2.setTvSubText(stepElementDetails.get(1).stepSubText);
+        stepElement2.setTvTitle(stepElementDetailArrayList.get(1).stepTitle);
+        stepElement2.setStepIcon(stepElementDetailArrayList.get(1).getStepIcon(), stepElementDetailArrayList.get(1).stepNumber);
+        stepElement2.setTvSubText(stepElementDetailArrayList.get(1).stepSubText);
         stepElement2.invalidateAndRequestLayout();
 
         LayoutParams dimensions1 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -149,8 +165,8 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
         stepElement2.setLayoutParams(dimensions1);
         idValue++;
         stepElement2.setId(idValue);
-        stepElement2.setStepElementDetails(stepElementDetails.get(1));
+        stepElement2.setStepElementDetails(stepElementDetailArrayList.get(1));
 
-        relativeLayout.addView(stepElement2);
+        relativeLayout.addView(stepElement2);*/
     }
 }

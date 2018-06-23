@@ -14,7 +14,6 @@ import io.tammen.stepper.R;
 
 /**
  * Created by Tammen Bruccoleri on 12/30/2017.
- *
  */
 
 public class StepElement extends RelativeLayout implements View.OnClickListener {
@@ -144,28 +143,29 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
                 tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_step);
                 break;
         }
-        invalidate();
-        requestLayout();
+        invalidateAndRequestLayout();
     }
 
-    void setTvTitle(String stepTitle) {
+    public void setTvTitle(String stepTitle) {
         Log.d(TAG, "setTvTitle called");
         tvTitle.setText(stepTitle);
     }
 
-    void setTvSubText(String stepSubText) {
+    public void setTvSubText(String stepSubText) {
         Log.d(TAG, "setTvSubText called");
         tvSubText.setText(stepSubText);
         //By default this view is GONE (will need to set to GONE if subtext is empty)
         tvSubText.setVisibility(View.VISIBLE);
     }
 
-    void invalidateAndRequestLayout() {
+    public void invalidateAndRequestLayout() {
         invalidate();
         requestLayout();
     }
 
-    void setStepElementDetails(StepElementDetail stepElementDetails) {
+    public void setStepElementDetails(StepElementDetail stepElementDetails) {
+        this.setTvTitle(stepElementDetails.stepTitle);
+        this.setStepIcon(stepElementDetails.getStepIcon(), stepElementDetails.stepNumber);
         this.stepElementDetail = stepElementDetails;
     }
 

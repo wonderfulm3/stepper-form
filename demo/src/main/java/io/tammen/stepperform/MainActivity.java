@@ -41,14 +41,11 @@ public class MainActivity extends AppCompatActivity {
         Vertical vertical = findViewById(R.id.vertical_example);
 
         //Step 3. Create Step Element objects
-        StepElementDetail step1 = new StepElementDetail.StepElementBuilder(1)
-                .stepIcon(StepIcon.INACTIVE)
-                .stepTitle("This is a first step example")
+        StepElementDetail step1 = new StepElementDetail.StepElementBuilder("This is a first step example")
                 .build();
 
-        StepElementDetail step2 = new StepElementDetail.StepElementBuilder(2)
+        StepElementDetail step2 = new StepElementDetail.StepElementBuilder("This is a second step")
                 .stepIcon(StepIcon.INACTIVE)
-                .stepTitle("This is a second step")
                 .stepSubText("While optional, please provide a value")
                 .stepOptional(true)
                 .build();

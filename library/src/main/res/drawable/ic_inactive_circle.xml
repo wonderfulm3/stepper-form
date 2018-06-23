@@ -3,7 +3,7 @@
     <item>
         <shape android:shape="oval">
             <solid android:color="@color/io_ta_black_38_percent" />
-            <size android:width="26dp" android:height="26dp" />
+            <size android:width="@dimen/stepper_circle_width_24dp" android:height="@dimen/stepper_circle_height_24dp" />
         </shape>
     </item>
 </selector>

@@ -7,7 +7,6 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Created by Tammen Bruccoleri on 12/31/2017.
- *
  */
 
 public class StepIcon {

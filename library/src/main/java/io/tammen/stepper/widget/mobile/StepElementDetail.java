@@ -3,21 +3,18 @@ package io.tammen.stepper.widget.mobile;
 import android.support.annotation.IntRange;
 import android.support.annotation.Size;
 
-import io.tammen.stepper.R;
-
 /**
  * Created by Tammen Bruccoleri on 1/5/2018.
- *
  */
 
 public class StepElementDetail {
     @Size(min = 1)
-    String stepTitle;
+    public String stepTitle;
     @Size(min = 1)
-    String stepSubText;
+    public String stepSubText;
     @IntRange(from = 1, to = 255)
-    int stepNumber;
-    boolean stepOptional;
+    public int stepNumber;
+    private boolean stepOptional;
     boolean isExpanded;
     boolean isDirty;
     @StepIcon.StepIconInterface
@@ -34,13 +31,17 @@ public class StepElementDetail {
         this.stepOptional = builder.stepOptional;
     }
 
+    @StepIcon.StepIconInterface
+    public int getStepIcon() {
+        return stepIcon;
+    }
+
     void setStepIcon(@StepIcon.StepIconInterface int stepIcon) {
         this.stepIcon = stepIcon;
     }
 
-    @StepIcon.StepIconInterface
-    int getStepIcon() {
-        return stepIcon;
+    public void setStepTitle(@Size(min = 1) String stepTitle) {
+        this.stepTitle = stepTitle;
     }
 
     public void setStepNumber(int stepNumber) {
@@ -48,14 +49,20 @@ public class StepElementDetail {
     }
 
     public static class StepElementBuilder {
-        private int stepIcon = R.drawable.ic_default_circle; //Default drawable icon
-        private final int stepNumber;
+        @StepIcon.StepIconInterface
+        private int stepIcon = StepIcon.INACTIVE; //Default inactive step if not defined
+        private int stepNumber;
         private String stepTitle;
         private String stepSubText;
         private boolean stepOptional;
 
-        public StepElementBuilder(@IntRange(from = 1, to = 255) int stepNumber) {
+        public StepElementBuilder(@Size(min = 1) String stepTitle) {
+            this.stepTitle = stepTitle;
+        }
+
+        public StepElementBuilder stepNumber(int stepNumber) {
             this.stepNumber = stepNumber;
+            return this;
         }
 
         public StepElementBuilder stepIcon(@StepIcon.StepIconInterface int stepIcon) {
