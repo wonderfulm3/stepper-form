@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     private final TextView tvIcon, tvTitle, tvSubText;
     private String stepSubText;
     private StepElementDetail stepElementDetail = new StepElementDetail();
+    private Button btnContinue, btnCancel;
 
     public StepElement(Context context) {
         this(context, null);
@@ -40,6 +42,12 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
 
         RelativeLayout rlRowElement = view.findViewById(R.id.rl_row_element);
         rlRowElement.setOnClickListener(this);
+
+        btnContinue = view.findViewById(R.id.row_element_continue);
+        btnContinue.setOnClickListener(this);
+
+        btnCancel = view.findViewById(R.id.row_element_cancel);
+        btnCancel.setOnClickListener(this);
 
         tvIcon = view.findViewById(R.id.row_element_icon);
         tvTitle = view.findViewById(R.id.row_element_title);
@@ -87,12 +95,20 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
                     setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
                 }
                 Log.d(TAG, "Step " + stepElementDetail.stepNumber + " already expanded. Time to collapse");
+                btnCancel.setVisibility(View.GONE);
+                btnContinue.setVisibility(View.GONE);
             } else {
                 stepElementDetail.isExpanded = true;
                 stepElementDetail.isDirty = true;
                 setStepIcon(StepIcon.EDIT, 0);
                 Log.d(TAG, "Step " + stepElementDetail.stepNumber + " is not expanded. Time to expand");
+                btnCancel.setVisibility(View.VISIBLE);
+                btnContinue.setVisibility(View.VISIBLE);
             }
+        } else if (i == R.id.row_element_continue) {
+            Toast.makeText(v.getContext(), "Continue tapped", Toast.LENGTH_LONG).show();
+        } else if (i == R.id.row_element_cancel) {
+            Toast.makeText(v.getContext(), "Cancel Tapped", Toast.LENGTH_LONG).show();
         }
     }
 

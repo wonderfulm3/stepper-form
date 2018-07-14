@@ -64,8 +64,20 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
     private void renderStepElements() {
         try {
             if (stepElementDetailArrayList != null && stepElementDetailArrayList.size() >= MIN_STEP_ELEMENT_SIZE) {
-                //Draw StepElement's
-                drawStepElement();
+                //Start of drawing StepElement's
+                //Going from an exception to where we now have valid Stepper elements
+                if (ivWhenRenderException.getVisibility() == View.VISIBLE) {
+                    ivWhenRenderException.setVisibility(View.GONE);
+                    tvStepElementTitleException.setVisibility(View.GONE);
+                }
+
+                //TODO temp rendering for 1 element
+                for (int i = 0; i < stepElementDetailArrayList.size(); i++) {
+                    if (i == 0) {
+                        relativeLayout.addView(VerticalEngine.getInstance().renderStepElement(this.getContext(),
+                                this.stepElementDetailArrayList.get(i), i));
+                    }
+                }
             } else {
                 throw new StepperElementException(getResources().getString(R.string.io_ta_mobile_exception_stepper_element_size_invalid),
                         new AnnotationErrorCode(AnnotationErrorCode.INVALID_ELEMENT_SIZE));
@@ -104,21 +116,8 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
      * Renders the Step Element within the Vertical layout view.
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @Deprecated
     private void drawStepElement() {
-        //Going from an exception to where we now have valid Stepper elements
-        if (ivWhenRenderException.getVisibility() == View.VISIBLE) {
-            ivWhenRenderException.setVisibility(View.GONE);
-            tvStepElementTitleException.setVisibility(View.GONE);
-        }
-
-        //TODO temp rendering for 1 element
-        for (int i = 0; i < stepElementDetailArrayList.size(); i++) {
-            if (i == 0) {
-                relativeLayout.addView(VerticalEngine.getInstance().renderStepElement(this.getContext(),
-                        this.stepElementDetailArrayList.get(i), i));
-            }
-        }
-
         //TODO leaving for reference needs to be removed when above "todo" is completed
         /*int idValue = 1;
         //Time to bust out the drawing

@@ -9,7 +9,6 @@
         android:id="@+id/row_element_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:background="@drawable/ic_default_circle"
         android:gravity="center"
         android:textColor="@color/io_ta_white"
@@ -20,7 +19,6 @@
         style="@style/io_ta_stepper_form_style_inactive_step"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_marginEnd="@dimen/io_ta_stepper_form_24dp"
         android:layout_marginStart="@dimen/io_ta_stepper_form_12dp"
         android:layout_toEndOf="@+id/row_element_icon"
@@ -38,5 +36,37 @@
         android:layout_marginTop="@dimen/io_ta_stepper_form_8dp"
         android:layout_toEndOf="@+id/row_element_icon"
         android:gravity="start"
+        android:text="@string/io_ta_mobile_step_subtext_placeholder"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/row_element_continue"
+        android:layout_width="100dp"
+        android:layout_height="@dimen/io_ta_stepper_form_48dp"
+        android:layout_below="@+id/row_element_title"
+        android:layout_marginBottom="@dimen/io_ta_stepper_form_8dp"
+        android:layout_marginStart="@dimen/io_ta_stepper_form_12dp"
+        android:layout_marginTop="@dimen/io_ta_stepper_form_8dp"
+        android:layout_toEndOf="@id/row_element_icon"
+        android:background="@drawable/continue_background"
+        android:text="@string/io_ta_continue"
+        android:textAllCaps="true"
+        android:textColor="@color/io_ta_white"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/row_element_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/io_ta_stepper_form_48dp"
+        android:layout_below="@+id/row_element_title"
+        android:layout_marginBottom="@dimen/io_ta_stepper_form_8dp"
+        android:layout_marginEnd="@dimen/io_ta_stepper_form_8dp"
+        android:layout_marginStart="@dimen/io_ta_stepper_form_8dp"
+        android:layout_marginTop="@dimen/io_ta_stepper_form_8dp"
+        android:layout_toEndOf="@id/row_element_continue"
+        android:background="?attr/selectableItemBackground"
+        android:text="@string/io_ta_cancel"
+        android:textAllCaps="true"
+        android:textColor="@color/io_ta_black_54_percent"
         android:visibility="gone" />
 </RelativeLayout>
