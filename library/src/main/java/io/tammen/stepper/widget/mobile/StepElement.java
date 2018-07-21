@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import io.tammen.stepper.R;
 
@@ -23,6 +22,7 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     private String stepSubText;
     private StepElementDetail stepElementDetail = new StepElementDetail();
     private Button btnContinue, btnCancel;
+    private View viewStub;
 
     public StepElement(Context context) {
         this(context, null);
@@ -52,6 +52,7 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
         tvIcon = view.findViewById(R.id.row_element_icon);
         tvTitle = view.findViewById(R.id.row_element_title);
         tvSubText = view.findViewById(R.id.row_element_subtext);
+        viewStub = view.findViewById(R.id.row_element_viewstub);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attributeSet,
@@ -88,27 +89,54 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.rl_row_element) {
-            Toast.makeText(v.getContext(), "Tapped on: " + stepElementDetail.stepTitle, Toast.LENGTH_LONG).show();
-            if (stepElementDetail.isExpanded) {
-                stepElementDetail.isExpanded = false;
-                if (stepElementDetail.isDirty) {
+            if (stepElementDetail.isStepExpanded) {
+                if (stepElementDetail.isStepDirty) {
                     setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
                 }
                 Log.d(TAG, "Step " + stepElementDetail.stepNumber + " already expanded. Time to collapse");
-                btnCancel.setVisibility(View.GONE);
-                btnContinue.setVisibility(View.GONE);
+                setViewElements(stepElementDetail, View.GONE);
             } else {
-                stepElementDetail.isExpanded = true;
-                stepElementDetail.isDirty = true;
+                stepElementDetail.isStepDirty = true;
                 setStepIcon(StepIcon.EDIT, 0);
                 Log.d(TAG, "Step " + stepElementDetail.stepNumber + " is not expanded. Time to expand");
-                btnCancel.setVisibility(View.VISIBLE);
-                btnContinue.setVisibility(View.VISIBLE);
+                setViewElements(stepElementDetail, View.VISIBLE);
             }
         } else if (i == R.id.row_element_continue) {
-            Toast.makeText(v.getContext(), "Continue tapped", Toast.LENGTH_LONG).show();
+            mockValidateStep(stepElementDetail);
         } else if (i == R.id.row_element_cancel) {
-            Toast.makeText(v.getContext(), "Cancel Tapped", Toast.LENGTH_LONG).show();
+            stepElementDetail.cancelStepElement();
+            setViewElements(stepElementDetail, View.GONE);
+            setStepIcon(stepElementDetail.getStepIcon(), stepElementDetail.stepNumber);
+        }
+    }
+
+    //TODO need to abstract this as an interface to a client to validate if step is valid
+    private void mockValidateStep(StepElementDetail stepElementDetail) {
+        if (stepElementDetail.getStepRequiresValidation()) {
+            stepElementDetail.isStepValid = true;
+            if (stepElementDetail.isStepValid()) {
+                setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
+                setViewElements(stepElementDetail, View.GONE);
+            } else {
+                setStepIcon(StepIcon.ERROR, stepElementDetail.stepNumber);
+                if (stepElementDetail.getStepContinueOnValidationFailure()) {
+                    setViewElements(stepElementDetail, View.GONE);
+                }
+            }
+        }
+    }
+
+    private void setViewElements(StepElementDetail stepElementDetail, int visibility) {
+        if (visibility == View.GONE) {
+            stepElementDetail.isStepExpanded = false;
+            btnCancel.setVisibility(View.GONE);
+            btnContinue.setVisibility(View.GONE);
+            viewStub.setVisibility(View.GONE);
+        } else if (visibility == View.VISIBLE) {
+            stepElementDetail.isStepExpanded = true;
+            btnCancel.setVisibility(View.VISIBLE);
+            btnContinue.setVisibility(View.VISIBLE);
+            viewStub.setVisibility(View.VISIBLE);
         }
     }
 

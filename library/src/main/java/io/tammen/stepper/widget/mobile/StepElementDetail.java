@@ -1,7 +1,11 @@
 package io.tammen.stepper.widget.mobile;
 
 import android.support.annotation.IntRange;
+import android.support.annotation.RestrictTo;
 import android.support.annotation.Size;
+
+import io.tammen.stepper.widget.mobile.exception.AnnotationErrorCode;
+import io.tammen.stepper.widget.mobile.exception.StepperElementException;
 
 /**
  * Created by Tammen Bruccoleri on 1/5/2018.
@@ -15,10 +19,13 @@ public class StepElementDetail {
     @IntRange(from = 1, to = 255)
     public int stepNumber;
     private boolean stepOptional;
-    boolean isExpanded;
-    boolean isDirty;
+    boolean isStepExpanded;
+    boolean isStepDirty;
     @StepIcon.StepIconInterface
     private int stepIcon;
+    boolean isStepValid;
+    private boolean stepRequiresValidation;
+    private boolean stepContinueOnValidationFailure;
 
     StepElementDetail() {
     }
@@ -29,6 +36,8 @@ public class StepElementDetail {
         this.stepTitle = builder.stepTitle;
         this.stepSubText = builder.stepSubText;
         this.stepOptional = builder.stepOptional;
+        this.stepRequiresValidation = builder.stepRequiresValidation;
+        this.stepContinueOnValidationFailure = builder.stepContinueOnValidationFailure;
     }
 
     @StepIcon.StepIconInterface
@@ -48,6 +57,25 @@ public class StepElementDetail {
         this.stepNumber = stepNumber;
     }
 
+    public boolean getStepRequiresValidation() {
+        return this.stepRequiresValidation;
+    }
+
+    public boolean getStepContinueOnValidationFailure() {
+        return this.stepContinueOnValidationFailure;
+    }
+
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    void cancelStepElement() {
+        this.setStepIcon(StepIcon.INACTIVE);
+        this.isStepDirty = false;
+    }
+
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public boolean isStepValid() {
+        return !stepRequiresValidation || isStepValid;
+    }
+
     public static class StepElementBuilder {
         @StepIcon.StepIconInterface
         private int stepIcon = StepIcon.INACTIVE; //Default inactive step if not defined
@@ -55,6 +83,8 @@ public class StepElementDetail {
         private String stepTitle;
         private String stepSubText;
         private boolean stepOptional;
+        private boolean stepRequiresValidation;
+        private boolean stepContinueOnValidationFailure;
 
         public StepElementBuilder(@Size(min = 1) String stepTitle) {
             this.stepTitle = stepTitle;
@@ -82,6 +112,20 @@ public class StepElementDetail {
 
         public StepElementBuilder stepOptional(boolean stepOptional) {
             this.stepOptional = stepOptional;
+            return this;
+        }
+
+        public StepElementBuilder stepRequiresValidation(boolean stepRequiresValidation) {
+            this.stepRequiresValidation = stepRequiresValidation;
+            return this;
+        }
+
+        public StepElementBuilder stepContinueOnValidationFailure(boolean stepContinueOnValidationFailure) throws StepperElementException {
+            if (!stepRequiresValidation) {
+                throw new StepperElementException("You asked for something you shouldn't have.",
+                        new AnnotationErrorCode(AnnotationErrorCode.INVALID_BUILDER_OPTIONS));
+            }
+            this.stepContinueOnValidationFailure = stepContinueOnValidationFailure;
             return this;
         }
 

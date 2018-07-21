@@ -39,11 +39,23 @@
         android:text="@string/io_ta_mobile_step_subtext_placeholder"
         android:visibility="gone" />
 
+    <View
+        android:id="@+id/row_element_viewstub"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/row_element_subtext"
+        android:layout_marginEnd="@dimen/io_ta_stepper_form_36dp"
+        android:layout_marginStart="@dimen/io_ta_stepper_form_12dp"
+        android:layout_marginTop="@dimen/io_ta_stepper_form_16dp"
+        android:layout_toEndOf="@id/row_element_icon"
+        android:background="@color/io_ta_black_54_percent"
+        android:visibility="gone" />
+
     <Button
         android:id="@+id/row_element_continue"
         android:layout_width="100dp"
         android:layout_height="@dimen/io_ta_stepper_form_48dp"
-        android:layout_below="@+id/row_element_title"
+        android:layout_below="@+id/row_element_viewstub"
         android:layout_marginBottom="@dimen/io_ta_stepper_form_8dp"
         android:layout_marginStart="@dimen/io_ta_stepper_form_12dp"
         android:layout_marginTop="@dimen/io_ta_stepper_form_8dp"
@@ -58,7 +70,7 @@
         android:id="@+id/row_element_cancel"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/io_ta_stepper_form_48dp"
-        android:layout_below="@+id/row_element_title"
+        android:layout_below="@+id/row_element_viewstub"
         android:layout_marginBottom="@dimen/io_ta_stepper_form_8dp"
         android:layout_marginEnd="@dimen/io_ta_stepper_form_8dp"
         android:layout_marginStart="@dimen/io_ta_stepper_form_8dp"

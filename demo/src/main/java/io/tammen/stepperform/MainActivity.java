@@ -19,9 +19,10 @@ import io.tammen.stepper.widget.mobile.exception.StepperElementException;
  */
 
 public class MainActivity extends AppCompatActivity {
+    private final String TAG = this.getClass().getSimpleName();
+
     //Step 1. Define ArrayList of Step Elements
     private final ArrayList<StepElementDetail> stepElementDetails = new ArrayList<>();
-    private final String TAG = this.getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +42,25 @@ public class MainActivity extends AppCompatActivity {
         Vertical vertical = findViewById(R.id.vertical_example);
 
         //Step 3. Create Step Element objects
-        StepElementDetail step1 = new StepElementDetail.StepElementBuilder("This is a first step example")
-                .build();
+        StepElementDetail step1;
+        StepElementDetail step2;
+        try {
+            step1 = new StepElementDetail.StepElementBuilder("This is a first step example")
+                    .stepRequiresValidation(true)
+                    .build();
 
-        StepElementDetail step2 = new StepElementDetail.StepElementBuilder("This is a second step")
-                .stepIcon(StepIcon.INACTIVE)
-                .stepSubText("While optional, please provide a value")
-                .stepOptional(true)
-                .build();
+            step2 = new StepElementDetail.StepElementBuilder("This is a second step")
+                    .stepIcon(StepIcon.INACTIVE)
+                    .stepRequiresValidation(true)
+                    .stepContinueOnValidationFailure(true)
+                    .stepSubText("While optional, please provide a value")
+                    .stepOptional(true)
+                    .build();
+        } catch (StepperElementException ex) {
+            Log.e(TAG, "We have a Builder issue: " + ex.getMessage());
+            Toast.makeText(this, "Error: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+            return;
+        }
 
         //Step 4. Add Step Elements to ArrayList
         stepElementDetails.add(step1);
