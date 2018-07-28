@@ -6,11 +6,13 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import io.tammen.stepper.R;
+import io.tammen.stepper.widget.mobile.render.VerticalEngine;
 
 /**
  * Created by Tammen Bruccoleri on 12/30/2017.
@@ -22,7 +24,8 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     private String stepSubText;
     private StepElementDetail stepElementDetail = new StepElementDetail();
     private Button btnContinue, btnCancel;
-    private View viewStub;
+    private View viewStub, verticalBarView;
+    private boolean touchEventOccurred;
 
     public StepElement(Context context) {
         this(context, null);
@@ -41,6 +44,24 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
         View view = inflate(context, R.layout.mobile_step_element, this);
 
         RelativeLayout rlRowElement = view.findViewById(R.id.rl_row_element);
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                //TODO need to animate this. Appears to be a bug where if animateLayoutChanges == true
+                if (stepElementDetail.isStepExpanded && touchEventOccurred) {
+                    touchEventOccurred = false;
+                    int locationPivot = (int) btnContinue.getY() + btnContinue.getLayoutParams().height;
+                    verticalBarView.setLayoutParams(VerticalEngine
+                            .getInstance().setVerticalBarHeight(true, getContext(),
+                                    locationPivot, verticalBarView.getLayoutParams()));
+                } else if (!stepElementDetail.isStepExpanded && touchEventOccurred) {
+                    touchEventOccurred = false;
+                    verticalBarView.setLayoutParams(VerticalEngine
+                            .getInstance().setVerticalBarHeight(false, getContext(),
+                                    0, verticalBarView.getLayoutParams()));
+                }
+            }
+        });
         rlRowElement.setOnClickListener(this);
 
         btnContinue = view.findViewById(R.id.row_element_continue);
@@ -53,6 +74,7 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
         tvTitle = view.findViewById(R.id.row_element_title);
         tvSubText = view.findViewById(R.id.row_element_subtext);
         viewStub = view.findViewById(R.id.row_element_viewstub);
+        verticalBarView = view.findViewById(R.id.row_element_vertical_bar);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attributeSet,
@@ -88,24 +110,25 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         int i = v.getId();
+        touchEventOccurred = true;
         if (i == R.id.rl_row_element) {
             if (stepElementDetail.isStepExpanded) {
                 if (stepElementDetail.isStepDirty) {
                     setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
                 }
                 Log.d(TAG, "Step " + stepElementDetail.stepNumber + " already expanded. Time to collapse");
-                setViewElements(stepElementDetail, View.GONE);
+                setViewElements(View.GONE);
             } else {
                 stepElementDetail.isStepDirty = true;
                 setStepIcon(StepIcon.EDIT, 0);
                 Log.d(TAG, "Step " + stepElementDetail.stepNumber + " is not expanded. Time to expand");
-                setViewElements(stepElementDetail, View.VISIBLE);
+                setViewElements(View.VISIBLE);
             }
         } else if (i == R.id.row_element_continue) {
             mockValidateStep(stepElementDetail);
         } else if (i == R.id.row_element_cancel) {
             stepElementDetail.cancelStepElement();
-            setViewElements(stepElementDetail, View.GONE);
+            setViewElements(View.GONE);
             setStepIcon(stepElementDetail.getStepIcon(), stepElementDetail.stepNumber);
         }
     }
@@ -116,17 +139,17 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
             stepElementDetail.isStepValid = true;
             if (stepElementDetail.isStepValid()) {
                 setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
-                setViewElements(stepElementDetail, View.GONE);
+                setViewElements(View.GONE);
             } else {
                 setStepIcon(StepIcon.ERROR, stepElementDetail.stepNumber);
                 if (stepElementDetail.getStepContinueOnValidationFailure()) {
-                    setViewElements(stepElementDetail, View.GONE);
+                    setViewElements(View.GONE);
                 }
             }
         }
     }
 
-    private void setViewElements(StepElementDetail stepElementDetail, int visibility) {
+    private void setViewElements(int visibility) {
         if (visibility == View.GONE) {
             stepElementDetail.isStepExpanded = false;
             btnCancel.setVisibility(View.GONE);

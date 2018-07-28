@@ -84,6 +84,7 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
             }
         } catch (StepperElementException ex) {
             Log.e(TAG, "Exception: " + ex.getMessage());
+            ex.printStackTrace();
             ivWhenRenderException.setVisibility(View.VISIBLE);
             tvStepElementTitleException.setVisibility(View.VISIBLE);
         }

@@ -1,6 +1,7 @@
 package io.tammen.stepper.widget.mobile.render;
 
 import android.content.Context;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import io.tammen.stepper.R;
@@ -12,11 +13,6 @@ import io.tammen.stepper.widget.mobile.StepElementDetail;
  */
 public class VerticalEngine {
     private static volatile VerticalEngine instance = null;
-    //TODO these will need to be supported during the calculateDimensions step
-    /*private final int verticalBarMarginTop = getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_8dp);
-    private final int verticalBarMargin = getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_36dp);
-    private int verticalBarWidth;
-    private final int margin = verticalBarWidth = getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_24dp);*/
 
     private VerticalEngine() {
     }
@@ -40,6 +36,16 @@ public class VerticalEngine {
         stepElement.setLayoutParams(calculateDimensions(context, index));
 
         return stepElement;
+    }
+
+    public ViewGroup.LayoutParams setVerticalBarHeight(boolean isExpanded, Context context, int locationPivot, ViewGroup.LayoutParams layoutParams) {
+        if (isExpanded) {
+            layoutParams.height = (locationPivot - layoutParams.height) + (int) DrawingHelper.getInstance().convertDpToPixel(24, context);
+            return layoutParams;
+        } else {
+            layoutParams.height = context.getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_32dp);
+            return layoutParams;
+        }
     }
 
     private RelativeLayout.LayoutParams calculateDimensions(Context context, int stepElementIndex) {

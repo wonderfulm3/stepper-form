@@ -3,7 +3,7 @@
     android:id="@+id/rl_row_element"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="false">
 
     <TextView
         android:id="@+id/row_element_icon"
@@ -13,6 +13,15 @@
         android:gravity="center"
         android:textColor="@color/io_ta_white"
         android:textSize="@dimen/io_ta_stepper_form_12sp" />
+
+    <View
+        android:id="@+id/row_element_vertical_bar"
+        android:layout_width="@dimen/io_ta_stepper_form_1dp"
+        android:layout_height="@dimen/io_ta_stepper_form_32dp"
+        android:layout_below="@+id/row_element_icon"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="@dimen/io_ta_stepper_form_8dp"
+        android:background="@color/io_ta_grey_400" />
 
     <TextView
         android:id="@+id/row_element_title"

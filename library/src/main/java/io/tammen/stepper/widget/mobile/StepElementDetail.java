@@ -68,6 +68,7 @@ public class StepElementDetail {
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     void cancelStepElement() {
         this.setStepIcon(StepIcon.INACTIVE);
+        this.isStepExpanded = false;
         this.isStepDirty = false;
     }
 
@@ -120,16 +121,21 @@ public class StepElementDetail {
             return this;
         }
 
-        public StepElementBuilder stepContinueOnValidationFailure(boolean stepContinueOnValidationFailure) throws StepperElementException {
-            if (!stepRequiresValidation) {
-                throw new StepperElementException("You asked for something you shouldn't have.",
-                        new AnnotationErrorCode(AnnotationErrorCode.INVALID_BUILDER_OPTIONS));
-            }
+        public StepElementBuilder stepContinueOnValidationFailure(boolean stepContinueOnValidationFailure) {
             this.stepContinueOnValidationFailure = stepContinueOnValidationFailure;
             return this;
         }
 
-        public StepElementDetail build() {
+        public StepElementDetail build() throws StepperElementException {
+            //TODO if this gets too complex or duplication comes in, this will be abstracted out to it's own validation engine
+            //Validate builder objects
+            //1. Requesting build option of stepContinueOnValidationFailure without
+            //setting the stepRequiresValidation will result in this exception being thrown.
+            if (!stepRequiresValidation && stepContinueOnValidationFailure) {
+                throw new StepperElementException("The options provided to the Builder are incompatible. " +
+                        "Having stepContinueOnValidationFailure without setting stepRequiresValidation == true caused this exception.",
+                        new AnnotationErrorCode(AnnotationErrorCode.INVALID_BUILDER_OPTIONS));
+            }
             return new StepElementDetail(this);
         }
     }
