@@ -1,6 +1,7 @@
 package io.tammen.stepper.widget.mobile.render;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
@@ -28,12 +29,12 @@ public class VerticalEngine {
         return instance;
     }
 
-    public StepElement renderStepElement(Context context, StepElementDetail stepElementDetail, int index) {
+    public StepElement renderStepElement(Context context, StepElementDetail stepElementDetail, int index, int priorElementStep) {
         //Time to bust out the drawing
         StepElement stepElement = new StepElement(context);
-        stepElement.setId(index);
+        stepElement.setId(View.generateViewId());
         stepElement.setStepElementDetails(stepElementDetail);
-        stepElement.setLayoutParams(calculateDimensions(context, index));
+        stepElement.setLayoutParams(calculateDimensions(context, index, priorElementStep));
 
         return stepElement;
     }
@@ -48,7 +49,7 @@ public class VerticalEngine {
         }
     }
 
-    private RelativeLayout.LayoutParams calculateDimensions(Context context, int stepElementIndex) {
+    private RelativeLayout.LayoutParams calculateDimensions(Context context, int stepElementIndex, int priorElementStep) {
         RelativeLayout.LayoutParams dimensions;
         // 0 == The very most top StepElement otherwise every other StepElement gets secondary dimensions
         if (stepElementIndex == 0) {
@@ -60,7 +61,7 @@ public class VerticalEngine {
         } else {
             dimensions = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
-
+            dimensions.addRule(RelativeLayout.BELOW, priorElementStep);
             dimensions.topMargin = context.getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_8dp);
             dimensions.setMarginStart(context.getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_24dp));
         }

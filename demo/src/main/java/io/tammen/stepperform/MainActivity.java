@@ -9,7 +9,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import io.tammen.stepper.widget.mobile.StepElementDetail;
-import io.tammen.stepper.widget.mobile.StepIcon;
 import io.tammen.stepper.widget.mobile.Vertical;
 import io.tammen.stepper.widget.mobile.exception.StepperElementException;
 
@@ -44,18 +43,21 @@ public class MainActivity extends AppCompatActivity {
         //Step 3. Create Step Element objects
         StepElementDetail step1;
         StepElementDetail step2;
+        StepElementDetail step3;
         try {
             step1 = new StepElementDetail.StepElementBuilder("This is a first step example")
-                    .stepRequiresValidation(true)
                     .build();
 
-            step2 = new StepElementDetail.StepElementBuilder("This is a second step")
-                    .stepIcon(StepIcon.INACTIVE)
+            step2 = new StepElementDetail.StepElementBuilder("This is a second step example")
                     .stepRequiresValidation(true)
                     .stepContinueOnValidationFailure(true)
                     .stepSubText("While optional, please provide a value")
                     .stepOptional(true)
                     .build();
+
+            step3 = new StepElementDetail.StepElementBuilder("This is a third step example")
+                    .build();
+
         } catch (StepperElementException ex) {
             Log.e(TAG, "We have a Builder issue: " + ex.getMessage());
             Toast.makeText(this, "Error: " + ex.getMessage(), Toast.LENGTH_LONG).show();
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         //Step 4. Add Step Elements to ArrayList
         stepElementDetails.add(step1);
         stepElementDetails.add(step2);
+        stepElementDetails.add(step3);
 
         //Step 5. Pass the off ArrayList to render step objects.
         try {

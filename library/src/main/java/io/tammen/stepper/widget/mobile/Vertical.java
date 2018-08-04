@@ -71,11 +71,24 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
                     tvStepElementTitleException.setVisibility(View.GONE);
                 }
 
-                //TODO temp rendering for 1 element
+                StepElement element;
+                int previousId = 0;
                 for (int i = 0; i < stepElementDetailArrayList.size(); i++) {
                     if (i == 0) {
-                        relativeLayout.addView(VerticalEngine.getInstance().renderStepElement(this.getContext(),
-                                this.stepElementDetailArrayList.get(i), i));
+                        element = VerticalEngine.getInstance().renderStepElement(this.getContext(),
+                                this.stepElementDetailArrayList.get(i), i, previousId);
+                        previousId = element.getId();
+                        relativeLayout.addView(element);
+                    } else {
+                        element = VerticalEngine.getInstance().renderStepElement(this.getContext(),
+                                this.stepElementDetailArrayList.get(i), i, previousId);
+                        previousId = element.getId();
+
+                        //For the last StepElement we don't want to render the vertical bar
+                        if (i == stepElementDetailArrayList.size() - 1) {
+                            element.verticalBarView.setVisibility(View.GONE);
+                        }
+                        relativeLayout.addView(element);
                     }
                 }
             } else {
@@ -111,62 +124,5 @@ public class Vertical extends RelativeLayout implements View.OnClickListener {
             throw new StepperElementException(getResources().getString(R.string.io_ta_mobile_exception_stepper_element_size_invalid),
                     new AnnotationErrorCode(AnnotationErrorCode.INVALID_ELEMENT_SIZE));
         }
-    }
-
-    /**
-     * Renders the Step Element within the Vertical layout view.
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    @Deprecated
-    private void drawStepElement() {
-        //TODO leaving for reference needs to be removed when above "todo" is completed
-        /*int idValue = 1;
-        //Time to bust out the drawing
-        StepElement stepElement = new StepElement(this.getContext());
-        stepElement.setTvTitle(stepElementDetailArrayList.get(0).stepTitle);
-        stepElement.setStepIcon(stepElementDetailArrayList.get(0).getStepIcon(), stepElementDetailArrayList.get(0).stepNumber);
-        stepElement.invalidateAndRequestLayout();
-
-        LayoutParams dimensions = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-        dimensions.topMargin = margin;
-        dimensions.setMarginStart(margin);
-
-        stepElement.setLayoutParams(dimensions);
-        stepElement.setId(idValue);
-        stepElement.setStepElementDetails(stepElementDetailArrayList.get(0));
-
-        relativeLayout.addView(stepElement);
-
-        AppCompatImageView verticalSpace = new AppCompatImageView(this.getContext());
-        verticalSpace.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_vertical_layer_line, null));
-
-        LayoutParams verticalBar = new LayoutParams(LayoutParams.WRAP_CONTENT, verticalBarWidth);
-        verticalBar.addRule(RelativeLayout.BELOW, stepElement.getId());
-        verticalBar.setMarginStart(verticalBarMargin);
-        verticalBar.setMargins(0, verticalBarMarginTop, 0, 0);
-        verticalSpace.setLayoutParams(verticalBar);
-        idValue++;
-        verticalSpace.setId(idValue);
-
-        relativeLayout.addView(verticalSpace);
-
-        StepElement stepElement2 = new StepElement(this.getContext());
-        stepElement2.setTvTitle(stepElementDetailArrayList.get(1).stepTitle);
-        stepElement2.setStepIcon(stepElementDetailArrayList.get(1).getStepIcon(), stepElementDetailArrayList.get(1).stepNumber);
-        stepElement2.setTvSubText(stepElementDetailArrayList.get(1).stepSubText);
-        stepElement2.invalidateAndRequestLayout();
-
-        LayoutParams dimensions1 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        dimensions1.addRule(RelativeLayout.BELOW, verticalSpace.getId());
-        dimensions1.setMargins(0, verticalBarMarginTop, 0, 0);
-        dimensions1.setMarginStart(margin);
-
-        stepElement2.setLayoutParams(dimensions1);
-        idValue++;
-        stepElement2.setId(idValue);
-        stepElement2.setStepElementDetails(stepElementDetailArrayList.get(1));
-
-        relativeLayout.addView(stepElement2);*/
     }
 }

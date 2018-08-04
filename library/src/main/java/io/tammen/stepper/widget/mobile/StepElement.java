@@ -23,8 +23,8 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     private final TextView tvIcon, tvTitle, tvSubText;
     private String stepSubText;
     private StepElementDetail stepElementDetail = new StepElementDetail();
-    private Button btnContinue, btnCancel;
-    private View viewStub, verticalBarView;
+    public final View viewStub, verticalBarView;
+    private final Button btnContinue, btnCancel;
     private boolean touchEventOccurred;
 
     public StepElement(Context context) {
@@ -42,6 +42,7 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     public StepElement(Context context, AttributeSet attributeSet, int defStyleAttr, int defStylesRes) {
         super(context, attributeSet, defStyleAttr, defStylesRes);
         View view = inflate(context, R.layout.mobile_step_element, this);
+        view.setId(View.generateViewId());
 
         RelativeLayout rlRowElement = view.findViewById(R.id.rl_row_element);
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -146,6 +147,9 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
                     setViewElements(View.GONE);
                 }
             }
+        } else {
+            setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
+            setViewElements(View.GONE);
         }
     }
 

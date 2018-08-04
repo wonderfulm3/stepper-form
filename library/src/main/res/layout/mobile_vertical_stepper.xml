@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_mobile_vertical_stepper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="false">
     <!-- Visible only when there is a drawing exception -->
     <TextView
         android:id="@+id/step_element_title_exception"
@@ -22,102 +23,4 @@
         android:layout_centerInParent="true"
         android:background="@drawable/ic_sad_face"
         android:visibility="gone" />
-    <!--
-    <io.tammen.stepper.widget.mobile.StepElement
-        android:id="@+id/io_ta_step_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/io.ta.stepper.form.24dp"
-        app:stepIcon="active"
-        app:stepNumber="1"
-        app:stepTitle="Step 1" />
-
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/line_1"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_below="@id/io_ta_step_1"
-        android:layout_marginStart="36dp"
-        android:background="@drawable/ic_vertical_layer_line" />
-
-    <io.tammen.stepper.widget.mobile.StepElement
-        android:id="@+id/io_ta_edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line_1"
-        app:stepIcon="checked"
-        app:stepNumber="2"
-        app:stepTitle="Step 2" />
-
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/line_2"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_below="@id/io_ta_edit"
-        android:layout_marginStart="36dp"
-        android:background="@drawable/ic_vertical_layer_line" />
-
-    <io.tammen.stepper.widget.mobile.StepElement
-        android:id="@+id/io_ta_step_3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line_2"
-        app:stepIcon="error"
-        app:stepNumber="3"
-        app:stepTitle="Step 3" />
-
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/line_3"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_below="@id/io_ta_step_3"
-        android:layout_marginStart="36dp"
-        android:background="@drawable/ic_vertical_layer_line" />
-
-    <io.tammen.stepper.widget.mobile.StepElement
-        android:id="@+id/io_ta_step_4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line_3"
-        app:stepIcon="inactive"
-        app:stepNumber="4"
-        app:stepSubtext="Step with Subtext"
-        app:stepTitle="Step 4" />
-
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/line_4"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_below="@id/io_ta_step_4"
-        android:layout_marginStart="36dp"
-        android:background="@drawable/ic_vertical_layer_line" />
-
-    <io.tammen.stepper.widget.mobile.StepElement
-        android:id="@+id/io_ta_step_5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line_4"
-        app:stepIcon="edit"
-        app:stepNumber="5"
-        app:stepSubtext="An Edit step"
-        app:stepTitle="Step 5" />
-
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/line_5"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_below="@id/io_ta_step_5"
-        android:layout_marginStart="36dp"
-        android:background="@drawable/ic_vertical_layer_line" />
-
-    <io.tammen.stepper.widget.mobile.StepElement
-        android:id="@+id/io_ta_step_6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line_5"
-        app:stepIcon="inactive"
-        app:stepNumber="6"
-        app:stepOptional="true"
-        app:stepTitle="Step 6" />-->
-
 </RelativeLayout>
