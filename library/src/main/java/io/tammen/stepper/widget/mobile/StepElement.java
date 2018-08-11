@@ -3,6 +3,7 @@ package io.tammen.stepper.widget.mobile;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import io.tammen.stepper.R;
+import io.tammen.stepper.widget.mobile.render.DrawingHelper;
 import io.tammen.stepper.widget.mobile.render.VerticalEngine;
 
 /**
@@ -23,9 +25,11 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     private final TextView tvIcon, tvTitle, tvSubText;
     private String stepSubText;
     private StepElementDetail stepElementDetail = new StepElementDetail();
-    public final View viewStub, verticalBarView;
+    public final View verticalBarView;
+    private View viewStub, view;
     private final Button btnContinue, btnCancel;
     private boolean touchEventOccurred;
+    private RelativeLayout rlRowElement;
 
     public StepElement(Context context) {
         this(context, null);
@@ -41,14 +45,15 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
 
     public StepElement(Context context, AttributeSet attributeSet, int defStyleAttr, int defStylesRes) {
         super(context, attributeSet, defStyleAttr, defStylesRes);
-        View view = inflate(context, R.layout.mobile_step_element, this);
+        view = inflate(context, R.layout.mobile_step_element, this);
         view.setId(View.generateViewId());
 
-        RelativeLayout rlRowElement = view.findViewById(R.id.rl_row_element);
+        rlRowElement = view.findViewById(R.id.rl_row_element);
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 //TODO need to animate this. Appears to be a bug where if animateLayoutChanges == true
+                Log.d(TAG, "onGlobalLayout: " + stepElementDetail.isStepExpanded + ", " + touchEventOccurred);
                 if (stepElementDetail.isStepExpanded && touchEventOccurred) {
                     touchEventOccurred = false;
                     int locationPivot = (int) btnContinue.getY() + btnContinue.getLayoutParams().height;
@@ -137,7 +142,7 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     //TODO need to abstract this as an interface to a client to validate if step is valid
     private void mockValidateStep(StepElementDetail stepElementDetail) {
         if (stepElementDetail.getStepRequiresValidation()) {
-            stepElementDetail.isStepValid = true;
+            this.stepElementDetail.isStepValid = true;
             if (stepElementDetail.isStepValid()) {
                 setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
                 setViewElements(View.GONE);
@@ -184,11 +189,13 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
                 tvIcon.setBackgroundResource(R.drawable.ic_default_circle);
                 tvIcon.setText(String.valueOf(stepNumber));
                 tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_active_step);
+                tvSubText.setTextAppearance(R.style.io_ta_stepper_form_style_optional_step);
                 break;
             case StepIcon.INACTIVE:
                 tvIcon.setBackgroundResource(R.drawable.ic_inactive_circle);
                 tvIcon.setText(String.valueOf(stepNumber));
                 tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_inactive_step);
+                tvSubText.setTextAppearance(R.style.io_ta_stepper_form_style_optional_step);
                 break;
             case StepIcon.ERROR_ACTIVE:
                 tvIcon.setBackgroundResource(R.drawable.ic_alert);
@@ -217,27 +224,28 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
         invalidateAndRequestLayout();
     }
 
-    public void setTvTitle(String stepTitle) {
-        Log.d(TAG, "setTvTitle called");
-        tvTitle.setText(stepTitle);
-    }
-
-    public void setTvSubText(String stepSubText) {
-        Log.d(TAG, "setTvSubText called");
-        tvSubText.setText(stepSubText);
-        //By default this view is GONE (will need to set to GONE if subtext is empty)
-        tvSubText.setVisibility(View.VISIBLE);
-    }
-
     public void invalidateAndRequestLayout() {
         invalidate();
         requestLayout();
     }
 
-    public void setStepElementDetails(StepElementDetail stepElementDetails) {
-        this.setTvTitle(stepElementDetails.stepTitle);
-        this.setStepIcon(stepElementDetails.getStepIcon(), stepElementDetails.stepNumber);
-        this.stepElementDetail = stepElementDetails;
+    public void setStepElementDetails(StepElementDetail stepElementDetail) {
+        this.stepElementDetail = stepElementDetail;
+        tvTitle.setText(this.stepElementDetail.stepTitle);
+        if (!TextUtils.isEmpty(this.stepElementDetail.stepSubText)) {
+            tvSubText.setText(this.stepElementDetail.stepSubText);
+            //By default this view is GONE (will need to set to GONE if subtext is empty)
+            tvSubText.setVisibility(View.VISIBLE);
+        }
+        if (this.stepElementDetail.getStepView() != null) {
+            viewStub = DrawingHelper.getInstance().replaceViewStub(rlRowElement,
+                    viewStub, this.stepElementDetail.getStepView());
+            rlRowElement.addView(viewStub);
+        } else {
+            Log.e(TAG, "Step View element is null");
+        }
+        this.setStepIcon(this.stepElementDetail.getStepIcon(), this.stepElementDetail.stepNumber);
+
     }
 
     private void addOrRemoveProperty(View view, int property, boolean flag) {

@@ -3,7 +3,7 @@
     android:id="@+id/rl_row_element"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:animateLayoutChanges="false">
+    android:animateLayoutChanges="true">
 
     <TextView
         android:id="@+id/row_element_icon"
@@ -50,8 +50,8 @@
 
     <View
         android:id="@+id/row_element_viewstub"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/row_element_subtext"
         android:layout_marginEnd="@dimen/io_ta_stepper_form_36dp"
         android:layout_marginStart="@dimen/io_ta_stepper_form_12dp"

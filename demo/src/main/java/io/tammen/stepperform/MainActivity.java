@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import io.tammen.stepper.widget.mobile.StepElementDetail;
 import io.tammen.stepper.widget.mobile.Vertical;
 import io.tammen.stepper.widget.mobile.exception.StepperElementException;
+import io.tammen.stepperform.view.Step1;
 
 /**
  * Created by Tammen Bruccoleri on 12/28/2017.
@@ -45,7 +46,11 @@ public class MainActivity extends AppCompatActivity {
         StepElementDetail step2;
         StepElementDetail step3;
         try {
-            step1 = new StepElementDetail.StepElementBuilder("This is a first step example")
+            step1 = new StepElementDetail.StepElementBuilder("Select pizza toppings")
+                    .stepSubText("This is a required step!")
+                    .stepRequiresValidation(true)
+                    .stepContinueOnValidationFailure(false)
+                    .stepView(new Step1(this))
                     .build();
 
             step2 = new StepElementDetail.StepElementBuilder("This is a second step example")

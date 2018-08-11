@@ -3,6 +3,7 @@ package io.tammen.stepper.widget.mobile;
 import android.support.annotation.IntRange;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.Size;
+import android.view.View;
 
 import io.tammen.stepper.widget.mobile.exception.AnnotationErrorCode;
 import io.tammen.stepper.widget.mobile.exception.StepperElementException;
@@ -26,6 +27,7 @@ public class StepElementDetail {
     boolean isStepValid;
     private boolean stepRequiresValidation;
     private boolean stepContinueOnValidationFailure;
+    private View stepView;
 
     StepElementDetail() {
     }
@@ -38,6 +40,7 @@ public class StepElementDetail {
         this.stepOptional = builder.stepOptional;
         this.stepRequiresValidation = builder.stepRequiresValidation;
         this.stepContinueOnValidationFailure = builder.stepContinueOnValidationFailure;
+        this.stepView = builder.stepView;
     }
 
     @StepIcon.StepIconInterface
@@ -65,6 +68,10 @@ public class StepElementDetail {
         return this.stepContinueOnValidationFailure;
     }
 
+    public View getStepView() {
+        return this.stepView;
+    }
+
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     void cancelStepElement() {
         this.setStepIcon(StepIcon.INACTIVE);
@@ -86,6 +93,7 @@ public class StepElementDetail {
         private boolean stepOptional;
         private boolean stepRequiresValidation;
         private boolean stepContinueOnValidationFailure;
+        private View stepView;
 
         public StepElementBuilder(@Size(min = 1) String stepTitle) {
             this.stepTitle = stepTitle;
@@ -123,6 +131,11 @@ public class StepElementDetail {
 
         public StepElementBuilder stepContinueOnValidationFailure(boolean stepContinueOnValidationFailure) {
             this.stepContinueOnValidationFailure = stepContinueOnValidationFailure;
+            return this;
+        }
+
+        public StepElementBuilder stepView(View stepView) {
+            this.stepView = stepView;
             return this;
         }
 

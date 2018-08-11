@@ -3,6 +3,9 @@ package io.tammen.stepper.widget.mobile.render;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 /**
  * Created by Tammen Bruccoleri on 6/16/2018.
@@ -48,5 +51,16 @@ public class DrawingHelper {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         return dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
+
+    public View replaceViewStub(RelativeLayout parent, View viewStub, View stepView) {
+        int id = viewStub.getId();
+        ViewGroup.LayoutParams layout = viewStub.getLayoutParams();
+        parent.removeView(viewStub);
+        viewStub = stepView;
+        viewStub.setLayoutParams(layout);
+        viewStub.setId(id);
+        viewStub.setVisibility(View.GONE);
+        return viewStub;
     }
 }
