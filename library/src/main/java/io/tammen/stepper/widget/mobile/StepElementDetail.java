@@ -3,16 +3,20 @@ package io.tammen.stepper.widget.mobile;
 import android.support.annotation.IntRange;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.Size;
+import android.util.Log;
 import android.view.View;
 
 import io.tammen.stepper.widget.mobile.exception.AnnotationErrorCode;
 import io.tammen.stepper.widget.mobile.exception.StepperElementException;
+import io.tammen.stepper.widget.mobile.interfaces.StepButtonListener;
+import io.tammen.stepper.widget.mobile.interfaces.StepValidationListener;
 
 /**
  * Created by Tammen Bruccoleri on 1/5/2018.
  */
 
 public class StepElementDetail {
+    StepButtonListener stepButtonListener;
     @Size(min = 1)
     public String stepTitle;
     @Size(min = 1)
@@ -24,10 +28,18 @@ public class StepElementDetail {
     boolean isStepDirty;
     @StepIcon.StepIconInterface
     private int stepIcon;
-    boolean isStepValid;
+    private String TAG = this.getClass().getSimpleName();
     private boolean stepRequiresValidation;
     private boolean stepContinueOnValidationFailure;
     private View stepView;
+    private boolean isStepValid;
+    public StepValidationListener stepValidationListener = new StepValidationListener() {
+        @Override
+        public void isStepValid(boolean stepValid) {
+            Log.d(TAG, "Step valid: " + stepValid);
+            isStepValid = stepValid;
+        }
+    };
 
     StepElementDetail() {
     }
@@ -41,6 +53,7 @@ public class StepElementDetail {
         this.stepRequiresValidation = builder.stepRequiresValidation;
         this.stepContinueOnValidationFailure = builder.stepContinueOnValidationFailure;
         this.stepView = builder.stepView;
+        this.stepButtonListener = builder.stepButtonListener;
     }
 
     @StepIcon.StepIconInterface
@@ -94,6 +107,7 @@ public class StepElementDetail {
         private boolean stepRequiresValidation;
         private boolean stepContinueOnValidationFailure;
         private View stepView;
+        private StepButtonListener stepButtonListener;
 
         public StepElementBuilder(@Size(min = 1) String stepTitle) {
             this.stepTitle = stepTitle;
@@ -136,6 +150,11 @@ public class StepElementDetail {
 
         public StepElementBuilder stepView(View stepView) {
             this.stepView = stepView;
+            return this;
+        }
+
+        public StepElementBuilder stepButtonListener(StepButtonListener stepButtonListener) {
+            this.stepButtonListener = stepButtonListener;
             return this;
         }
 

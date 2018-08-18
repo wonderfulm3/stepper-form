@@ -26,7 +26,7 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     private String stepSubText;
     private StepElementDetail stepElementDetail = new StepElementDetail();
     public final View verticalBarView;
-    private View viewStub, view;
+    private View viewStub;
     private final Button btnContinue, btnCancel;
     private boolean touchEventOccurred;
     private RelativeLayout rlRowElement;
@@ -45,7 +45,7 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
 
     public StepElement(Context context, AttributeSet attributeSet, int defStyleAttr, int defStylesRes) {
         super(context, attributeSet, defStyleAttr, defStylesRes);
-        view = inflate(context, R.layout.mobile_step_element, this);
+        View view = inflate(context, R.layout.mobile_step_element, this);
         view.setId(View.generateViewId());
 
         rlRowElement = view.findViewById(R.id.rl_row_element);
@@ -131,18 +131,25 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
                 setViewElements(View.VISIBLE);
             }
         } else if (i == R.id.row_element_continue) {
-            mockValidateStep(stepElementDetail);
+            stepElementDetail.stepButtonListener.onStepContinueClicked(stepElementDetail.stepNumber);
+            try {
+                //TODO Need to use a ObservableBoolean
+                //https://developer.android.com/reference/android/databinding/ObservableBoolean
+                Thread.sleep(300);
+                processValidationDrawing(stepElementDetail);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } else if (i == R.id.row_element_cancel) {
+            stepElementDetail.stepButtonListener.onStepCancelClicked(stepElementDetail.stepNumber);
             stepElementDetail.cancelStepElement();
             setViewElements(View.GONE);
             setStepIcon(stepElementDetail.getStepIcon(), stepElementDetail.stepNumber);
         }
     }
 
-    //TODO need to abstract this as an interface to a client to validate if step is valid
-    private void mockValidateStep(StepElementDetail stepElementDetail) {
+    private void processValidationDrawing(StepElementDetail stepElementDetail) {
         if (stepElementDetail.getStepRequiresValidation()) {
-            this.stepElementDetail.isStepValid = true;
             if (stepElementDetail.isStepValid()) {
                 setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
                 setViewElements(View.GONE);
@@ -245,7 +252,6 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
             Log.e(TAG, "Step View element is null");
         }
         this.setStepIcon(this.stepElementDetail.getStepIcon(), this.stepElementDetail.stepNumber);
-
     }
 
     private void addOrRemoveProperty(View view, int property, boolean flag) {

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import io.tammen.stepper.widget.mobile.StepElementDetail;
 import io.tammen.stepper.widget.mobile.Vertical;
 import io.tammen.stepper.widget.mobile.exception.StepperElementException;
+import io.tammen.stepper.widget.mobile.interfaces.StepButtonListener;
 import io.tammen.stepperform.view.Step1;
 
 /**
@@ -18,7 +19,7 @@ import io.tammen.stepperform.view.Step1;
  *
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements StepButtonListener {
     private final String TAG = this.getClass().getSimpleName();
 
     //Step 1. Define ArrayList of Step Elements
@@ -45,15 +46,20 @@ public class MainActivity extends AppCompatActivity {
         StepElementDetail step1;
         StepElementDetail step2;
         StepElementDetail step3;
+        Step1 step1View = new Step1(this);
         try {
             step1 = new StepElementDetail.StepElementBuilder("Select pizza toppings")
                     .stepSubText("This is a required step!")
+                    .stepButtonListener(step1View)
                     .stepRequiresValidation(true)
                     .stepContinueOnValidationFailure(false)
-                    .stepView(new Step1(this))
+                    .stepView(step1View)
                     .build();
+            //Step 3b. Handling the step validation in Step1 View.
+            step1View.stepValidationListener = step1.stepValidationListener;
 
             step2 = new StepElementDetail.StepElementBuilder("This is a second step example")
+                    .stepButtonListener(this)
                     .stepRequiresValidation(true)
                     .stepContinueOnValidationFailure(true)
                     .stepSubText("While optional, please provide a value")
@@ -61,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     .build();
 
             step3 = new StepElementDetail.StepElementBuilder("This is a third step example")
+                    .stepButtonListener(this)
                     .build();
 
         } catch (StepperElementException ex) {
@@ -81,5 +88,15 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "We have a rendering issue");
             Toast.makeText(this, "Error: " + ex.getMessage(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onStepContinueClicked(int stepClicked) {
+        Toast.makeText(this, "Step clicked: " + stepClicked, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onStepCancelClicked(int stepClicked) {
+
     }
 }
