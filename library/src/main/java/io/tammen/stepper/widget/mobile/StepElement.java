@@ -3,16 +3,19 @@ package io.tammen.stepper.widget.mobile;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import io.tammen.stepper.R;
+import io.tammen.stepper.widget.mobile.interfaces.StepValidationListener;
 import io.tammen.stepper.widget.mobile.render.DrawingHelper;
 import io.tammen.stepper.widget.mobile.render.VerticalEngine;
 
@@ -20,7 +23,7 @@ import io.tammen.stepper.widget.mobile.render.VerticalEngine;
  * Created by Tammen Bruccoleri on 12/30/2017.
  */
 
-public class StepElement extends RelativeLayout implements View.OnClickListener {
+public class StepElement extends RelativeLayout implements StepValidationListener, View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
     private final TextView tvIcon, tvTitle, tvSubText;
     private String stepSubText;
@@ -29,7 +32,9 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     private View viewStub;
     private final Button btnContinue, btnCancel;
     private boolean touchEventOccurred;
-    private RelativeLayout rlRowElement;
+    private final RelativeLayout rlRowElement;
+    private final ProgressBar stepValidationProgressBar;//TODO may want to provide custom progress feedback
+    private final Handler handler = new Handler();//TODO this is for mocking purpose only
 
     public StepElement(Context context) {
         this(context, null);
@@ -42,6 +47,15 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
     public StepElement(Context context, AttributeSet attributeSet, int defStyleAttr) {
         this(context, attributeSet, defStyleAttr, 0);
     }
+
+    //TODO remove this as this is for mocking purpose only
+    private final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            //mocking validation failed (this could be a server side response, etc)
+            processValidationDrawing(stepElementDetail);
+        }
+    };
 
     public StepElement(Context context, AttributeSet attributeSet, int defStyleAttr, int defStylesRes) {
         super(context, attributeSet, defStyleAttr, defStylesRes);
@@ -81,6 +95,7 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
         tvSubText = view.findViewById(R.id.row_element_subtext);
         viewStub = view.findViewById(R.id.row_element_viewstub);
         verticalBarView = view.findViewById(R.id.row_element_vertical_bar);
+        stepValidationProgressBar = view.findViewById(R.id.row_progress_bar);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attributeSet,
@@ -123,52 +138,67 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
                     setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
                 }
                 Log.d(TAG, "Step " + stepElementDetail.stepNumber + " already expanded. Time to collapse");
-                setViewElements(View.GONE);
+                setViewElements(View.GONE, false);
             } else {
                 stepElementDetail.isStepDirty = true;
                 setStepIcon(StepIcon.EDIT, 0);
                 Log.d(TAG, "Step " + stepElementDetail.stepNumber + " is not expanded. Time to expand");
-                setViewElements(View.VISIBLE);
+                setViewElements(View.VISIBLE, false);
             }
         } else if (i == R.id.row_element_continue) {
+            //TODO Need to use a ObservableBoolean or listener callbacks this is for mocking only!!!
+            handler.postDelayed(runnable, 7000);
+
             stepElementDetail.stepButtonListener.onStepContinueClicked(stepElementDetail.stepNumber);
-            try {
-                //TODO Need to use a ObservableBoolean
-                //https://developer.android.com/reference/android/databinding/ObservableBoolean
-                Thread.sleep(300);
-                processValidationDrawing(stepElementDetail);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            processValidationDrawing(stepElementDetail);
         } else if (i == R.id.row_element_cancel) {
             stepElementDetail.stepButtonListener.onStepCancelClicked(stepElementDetail.stepNumber);
             stepElementDetail.cancelStepElement();
-            setViewElements(View.GONE);
+            setViewElements(View.GONE, false);
             setStepIcon(stepElementDetail.getStepIcon(), stepElementDetail.stepNumber);
         }
     }
 
     private void processValidationDrawing(StepElementDetail stepElementDetail) {
         if (stepElementDetail.getStepRequiresValidation()) {
+            setStepIcon(StepIcon.EDIT, stepElementDetail.stepNumber);
+
+            if (stepElementDetail.stepHasValidationProgressBar && stepElementDetail.isStepInValidationState) {
+                setViewElements(View.GONE, true);
+            }
+
             if (stepElementDetail.isStepValid()) {
                 setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
-                setViewElements(View.GONE);
-            } else {
+                setViewElements(View.GONE, false);
+            } else if (!stepElementDetail.isStepValid() && stepElementDetail.stepContinueOnValidationFailure) {
                 setStepIcon(StepIcon.ERROR, stepElementDetail.stepNumber);
-                if (stepElementDetail.getStepContinueOnValidationFailure()) {
-                    setViewElements(View.GONE);
-                }
+                setViewElements(View.GONE, false);
+            } else if (!stepElementDetail.isStepValid() && !stepElementDetail.isStepInValidationState) {
+                setStepIcon(StepIcon.ERROR, stepElementDetail.stepNumber);
+                setViewElements(View.VISIBLE, false);
             }
         } else {
             setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
-            setViewElements(View.GONE);
+            setViewElements(View.GONE, false);
         }
     }
 
-    private void setViewElements(int visibility) {
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Log.d(TAG, "onDraw being called");
+    }
+
+    private void setViewElements(int visibility, boolean showProgressBar) {
+        if (showProgressBar) {
+            stepValidationProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            stepValidationProgressBar.setVisibility(View.GONE);
+        }
         if (visibility == View.GONE) {
             stepElementDetail.isStepExpanded = false;
-            btnCancel.setVisibility(View.GONE);
+            if (stepValidationProgressBar.getVisibility() != View.VISIBLE) {
+                btnCancel.setVisibility(View.GONE);
+            }
             btnContinue.setVisibility(View.GONE);
             viewStub.setVisibility(View.GONE);
         } else if (visibility == View.VISIBLE) {
@@ -179,9 +209,37 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
         }
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        Log.d(TAG, "onDraw being called");
+    public void invalidateAndRequestLayout() {
+        invalidate();
+        requestLayout();
+    }
+
+    public void setStepElementDetails(StepElementDetail stepElementDetail) {
+        this.stepElementDetail = stepElementDetail;
+        tvTitle.setText(this.stepElementDetail.stepTitle);
+        if (!TextUtils.isEmpty(this.stepElementDetail.stepSubText)) {
+            tvSubText.setText(this.stepElementDetail.stepSubText);
+            //By default this view is GONE (will need to set to GONE if subtext is empty)
+            tvSubText.setVisibility(View.VISIBLE);
+        }
+        if (this.stepElementDetail.getStepView() != null) {
+            viewStub = DrawingHelper.getInstance().replaceViewStub(rlRowElement,
+                    viewStub, this.stepElementDetail.getStepView());
+            rlRowElement.addView(viewStub);
+        } else {
+            Log.e(TAG, "Step View element is null");
+        }
+        this.setStepIcon(this.stepElementDetail.getStepIcon(), this.stepElementDetail.stepNumber);
+    }
+
+    private void addOrRemoveProperty(View view, int property, boolean flag) {
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+        if (flag) {
+            layoutParams.addRule(property);
+        } else {
+            layoutParams.removeRule(property);
+        }
+        view.setLayoutParams(layoutParams);
     }
 
     // ------- Methods that are part of the Step Element interface --------------->
@@ -191,6 +249,7 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
                 tvIcon.setText("");
                 tvIcon.setBackgroundResource(R.drawable.ic_edit_circle);
                 tvTitle.setTextAppearance(R.style.io_ta_stepper_form_style_active_step);
+                tvSubText.setTextAppearance(R.style.io_ta_stepper_form_style_optional_step);
                 break;
             case StepIcon.ACTIVE:
                 tvIcon.setBackgroundResource(R.drawable.ic_default_circle);
@@ -231,36 +290,13 @@ public class StepElement extends RelativeLayout implements View.OnClickListener 
         invalidateAndRequestLayout();
     }
 
-    public void invalidateAndRequestLayout() {
-        invalidate();
-        requestLayout();
+    @Override
+    public void isStepInValidationState(boolean validating) {
+
     }
 
-    public void setStepElementDetails(StepElementDetail stepElementDetail) {
-        this.stepElementDetail = stepElementDetail;
-        tvTitle.setText(this.stepElementDetail.stepTitle);
-        if (!TextUtils.isEmpty(this.stepElementDetail.stepSubText)) {
-            tvSubText.setText(this.stepElementDetail.stepSubText);
-            //By default this view is GONE (will need to set to GONE if subtext is empty)
-            tvSubText.setVisibility(View.VISIBLE);
-        }
-        if (this.stepElementDetail.getStepView() != null) {
-            viewStub = DrawingHelper.getInstance().replaceViewStub(rlRowElement,
-                    viewStub, this.stepElementDetail.getStepView());
-            rlRowElement.addView(viewStub);
-        } else {
-            Log.e(TAG, "Step View element is null");
-        }
-        this.setStepIcon(this.stepElementDetail.getStepIcon(), this.stepElementDetail.stepNumber);
-    }
+    @Override
+    public void isStepValid(boolean valid) {
 
-    private void addOrRemoveProperty(View view, int property, boolean flag) {
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-        if (flag) {
-            layoutParams.addRule(property);
-        } else {
-            layoutParams.removeRule(property);
-        }
-        view.setLayoutParams(layoutParams);
     }
 }

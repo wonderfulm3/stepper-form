@@ -1,6 +1,7 @@
 package io.tammen.stepperform.view;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.CheckBox;
@@ -16,7 +17,8 @@ import io.tammen.stepperform.R;
  */
 public class Step1 extends RelativeLayout implements StepButtonListener {
     public StepValidationListener stepValidationListener;
-    private CheckBox option1, option2;
+    private final CheckBox option1, option2;
+    private final Handler handler = new Handler();
 
     public Step1(Context context) {
         this(context, null);
@@ -37,19 +39,28 @@ public class Step1 extends RelativeLayout implements StepButtonListener {
         option2 = view.findViewById(R.id.cb_option_b);
     }
 
-    @Override
-    public void onStepContinueClicked(int stepClicked) {
-        if (option1.isChecked() || option2.isChecked()) {
-            Toast.makeText(super.getContext(), "Proceed!!!", Toast.LENGTH_LONG).show();
-            this.stepValidationListener.isStepValid(true);
-        } else {
-            Toast.makeText(super.getContext(), "You need a topping!!!", Toast.LENGTH_LONG).show();
-            this.stepValidationListener.isStepValid(false);
+    private final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            //mocking server side validation this could be a server side response,
+            //some task that takes time, delayed network responses, etc)
+            stepValidationListener.isStepValid(true);
         }
-    }
+    };
 
     @Override
     public void onStepCancelClicked(int stepClicked) {
         Toast.makeText(super.getContext(), "Why you Cancel!? Toppings scare you?", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onStepContinueClicked(int stepClicked) {
+        //Must select 1 or more toppings for this step to be considered valid and meet validation
+        if (option1.isChecked() || option2.isChecked()) {
+            this.stepValidationListener.isStepInValidationState(true);
+            handler.postDelayed(runnable, 5000);
+        } else {
+            this.stepValidationListener.isStepValid(false);
+        }
     }
 }

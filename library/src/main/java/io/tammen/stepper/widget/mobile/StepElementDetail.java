@@ -16,7 +16,7 @@ import io.tammen.stepper.widget.mobile.interfaces.StepValidationListener;
  */
 
 public class StepElementDetail {
-    StepButtonListener stepButtonListener;
+    private final String TAG = this.getClass().getSimpleName();
     @Size(min = 1)
     public String stepTitle;
     @Size(min = 1)
@@ -28,16 +28,34 @@ public class StepElementDetail {
     boolean isStepDirty;
     @StepIcon.StepIconInterface
     private int stepIcon;
-    private String TAG = this.getClass().getSimpleName();
     private boolean stepRequiresValidation;
-    private boolean stepContinueOnValidationFailure;
+    boolean stepContinueOnValidationFailure;
     private View stepView;
     private boolean isStepValid;
+    StepButtonListener stepButtonListener;
+    boolean stepHasValidationProgressBar;
+    boolean isStepInValidationState;
     public StepValidationListener stepValidationListener = new StepValidationListener() {
+        @Override
+        public void isStepInValidationState(boolean validating) {
+            Log.d(TAG, "Step in validation state: " + validating);
+            setIsStepInValidationState(validating);
+            //Handling the case where step was in a validate state and now a new state of validation occurs
+            if (isStepValid) {
+                setIsStepValid(false);
+            }
+        }
+
         @Override
         public void isStepValid(boolean stepValid) {
             Log.d(TAG, "Step valid: " + stepValid);
-            isStepValid = stepValid;
+            setIsStepValid(stepValid);
+            //Handling the case where in a validating state is in progress when a validation of fail/success
+            if (isStepInValidationState) {
+                Log.d(TAG, "Setting isStepInValidationState to false");
+                setIsStepInValidationState(false);
+
+            }
         }
     };
 
@@ -54,11 +72,24 @@ public class StepElementDetail {
         this.stepContinueOnValidationFailure = builder.stepContinueOnValidationFailure;
         this.stepView = builder.stepView;
         this.stepButtonListener = builder.stepButtonListener;
+        this.stepHasValidationProgressBar = builder.stepHasValidationProgressBar;
+    }
+
+    public boolean getIsStepValid() {
+        return isStepValid;
     }
 
     @StepIcon.StepIconInterface
     public int getStepIcon() {
         return stepIcon;
+    }
+
+    private void setIsStepValid(boolean isStepValid) {
+        this.isStepValid = isStepValid;
+    }
+
+    private void setIsStepInValidationState(boolean isStepInValidationState) {
+        this.isStepInValidationState = isStepInValidationState;
     }
 
     void setStepIcon(@StepIcon.StepIconInterface int stepIcon) {
@@ -75,10 +106,6 @@ public class StepElementDetail {
 
     public boolean getStepRequiresValidation() {
         return this.stepRequiresValidation;
-    }
-
-    public boolean getStepContinueOnValidationFailure() {
-        return this.stepContinueOnValidationFailure;
     }
 
     public View getStepView() {
@@ -108,6 +135,7 @@ public class StepElementDetail {
         private boolean stepContinueOnValidationFailure;
         private View stepView;
         private StepButtonListener stepButtonListener;
+        private boolean stepHasValidationProgressBar;
 
         public StepElementBuilder(@Size(min = 1) String stepTitle) {
             this.stepTitle = stepTitle;
@@ -155,6 +183,11 @@ public class StepElementDetail {
 
         public StepElementBuilder stepButtonListener(StepButtonListener stepButtonListener) {
             this.stepButtonListener = stepButtonListener;
+            return this;
+        }
+
+        public StepElementBuilder stepHasValidationProgressBar(boolean stepHasValidationProgressBar) {
+            this.stepHasValidationProgressBar = stepHasValidationProgressBar;
             return this;
         }
 

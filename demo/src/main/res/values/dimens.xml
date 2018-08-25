@@ -1,1 +1,3 @@
-<resources></resources>
+<resources>
+    <dimen name="io_ta_demo_example_8dp">8dp</dimen>
+</resources>

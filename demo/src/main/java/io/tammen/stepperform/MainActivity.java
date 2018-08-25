@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements StepButtonListene
                     .stepButtonListener(step1View)
                     .stepRequiresValidation(true)
                     .stepContinueOnValidationFailure(false)
+                    .stepHasValidationProgressBar(true)
                     .stepView(step1View)
                     .build();
             //Step 3b. Handling the step validation in Step1 View.

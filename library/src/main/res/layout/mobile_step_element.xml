@@ -90,4 +90,15 @@
         android:textAllCaps="true"
         android:textColor="@color/io_ta_black_54_percent"
         android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/row_progress_bar"
+        style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:layout_width="@dimen/io_ta_stepper_form_36dp"
+        android:layout_height="@dimen/io_ta_stepper_form_36dp"
+        android:layout_below="@+id/row_element_viewstub"
+        android:layout_marginTop="@dimen/io_ta_stepper_form_12dp"
+        android:layout_toEndOf="@+id/row_element_cancel"
+        android:indeterminate="true"
+        android:visibility="gone" />
 </RelativeLayout>
