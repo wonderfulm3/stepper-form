@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements StepButtonListene
                     .stepButtonListener(this)
                     .stepRequiresValidation(true)
                     .stepContinueOnValidationFailure(true)
-                    .stepSubText("While optional, please provide a value")
+                    .stepSubText("While optional, please provide a value. Pizza may only be half-baked")
                     .stepOptional(true)
                     .build();
 

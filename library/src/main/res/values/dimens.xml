@@ -21,6 +21,7 @@
     <dimen name="io_ta_stepper_form_32dp">32dp</dimen>
     <dimen name="io_ta_stepper_form_36dp">36dp</dimen>
     <dimen name="io_ta_stepper_form_48dp">48dp</dimen>
+    <dimen name="io_ta_stepper_form_72dp">72dp</dimen>
     <dimen name="io_ta_stepper_form_icon_width" translatable="false">
         @dimen/io_ta_stepper_form_24dp
     </dimen>

@@ -48,9 +48,16 @@ public class Step1 extends RelativeLayout implements StepButtonListener {
         }
     };
 
+    private void clearSelections() {
+        option1.setChecked(false);
+        option2.setChecked(false);
+    }
+
     @Override
     public void onStepCancelClicked(int stepClicked) {
         Toast.makeText(super.getContext(), "Why you Cancel!? Toppings scare you?", Toast.LENGTH_LONG).show();
+        this.stepValidationListener.cancelStep();
+        clearSelections();
     }
 
     @Override

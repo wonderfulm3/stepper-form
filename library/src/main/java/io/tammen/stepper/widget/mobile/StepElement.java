@@ -35,6 +35,7 @@ public class StepElement extends RelativeLayout implements StepValidationListene
     private final RelativeLayout rlRowElement;
     private final ProgressBar stepValidationProgressBar;//TODO may want to provide custom progress feedback
     private final Handler handler = new Handler();//TODO this is for mocking purpose only
+    private boolean retryValidation;
 
     public StepElement(Context context) {
         this(context, null);
@@ -54,6 +55,9 @@ public class StepElement extends RelativeLayout implements StepValidationListene
         public void run() {
             //mocking validation failed (this could be a server side response, etc)
             processValidationDrawing(stepElementDetail);
+            if (retryValidation) {
+                handler.postDelayed(runnable, 1000);
+            }
         }
     };
 
@@ -72,12 +76,14 @@ public class StepElement extends RelativeLayout implements StepValidationListene
                     touchEventOccurred = false;
                     int locationPivot = (int) btnContinue.getY() + btnContinue.getLayoutParams().height;
                     verticalBarView.setLayoutParams(VerticalEngine
-                            .getInstance().setVerticalBarHeight(true, getContext(),
+                            .getInstance().setVerticalBarHeight(true,
+                                    stepElementDetail.isStepInValidationState, getContext(),
                                     locationPivot, verticalBarView.getLayoutParams()));
                 } else if (!stepElementDetail.isStepExpanded && touchEventOccurred) {
                     touchEventOccurred = false;
                     verticalBarView.setLayoutParams(VerticalEngine
-                            .getInstance().setVerticalBarHeight(false, getContext(),
+                            .getInstance().setVerticalBarHeight(false,
+                                    stepElementDetail.isStepInValidationState, getContext(),
                                     0, verticalBarView.getLayoutParams()));
                 }
             }
@@ -147,7 +153,7 @@ public class StepElement extends RelativeLayout implements StepValidationListene
             }
         } else if (i == R.id.row_element_continue) {
             //TODO Need to use a ObservableBoolean or listener callbacks this is for mocking only!!!
-            handler.postDelayed(runnable, 7000);
+            handler.postDelayed(runnable, 1000);
 
             stepElementDetail.stepButtonListener.onStepContinueClicked(stepElementDetail.stepNumber);
             processValidationDrawing(stepElementDetail);
@@ -159,7 +165,16 @@ public class StepElement extends RelativeLayout implements StepValidationListene
         }
     }
 
+    //TODO this is a temp method and will need to be adjusted on Observer callbacks
     private void processValidationDrawing(StepElementDetail stepElementDetail) {
+        Log.d(TAG, "Validation checking...");
+        //Honor the User cancelling the step. This takes precedences over the validation.
+        if (stepElementDetail.stepHasValidationProgressBar && stepElementDetail.stepIsCancelled) {
+            setViewElements(View.VISIBLE, false);
+            stepElementDetail.stepIsCancelled = false;
+            return;
+        }
+
         if (stepElementDetail.getStepRequiresValidation()) {
             setStepIcon(StepIcon.EDIT, stepElementDetail.stepNumber);
 
@@ -191,8 +206,12 @@ public class StepElement extends RelativeLayout implements StepValidationListene
     private void setViewElements(int visibility, boolean showProgressBar) {
         if (showProgressBar) {
             stepValidationProgressBar.setVisibility(View.VISIBLE);
+            retryValidation = true;
+            touchEventOccurred = true;
         } else {
             stepValidationProgressBar.setVisibility(View.GONE);
+            retryValidation = false;
+            touchEventOccurred = true;
         }
         if (visibility == View.GONE) {
             stepElementDetail.isStepExpanded = false;
@@ -297,6 +316,11 @@ public class StepElement extends RelativeLayout implements StepValidationListene
 
     @Override
     public void isStepValid(boolean valid) {
+
+    }
+
+    @Override
+    public void cancelStep() {
 
     }
 }

@@ -39,9 +39,13 @@ public class VerticalEngine {
         return stepElement;
     }
 
-    public ViewGroup.LayoutParams setVerticalBarHeight(boolean isExpanded, Context context, int locationPivot, ViewGroup.LayoutParams layoutParams) {
+    public ViewGroup.LayoutParams setVerticalBarHeight(boolean isExpanded, boolean isShowingProgress, Context context, int locationPivot, ViewGroup.LayoutParams layoutParams) {
         if (isExpanded) {
             layoutParams.height = (locationPivot - layoutParams.height) + (int) DrawingHelper.getInstance().convertDpToPixel(24, context);
+            return layoutParams;
+        } else if (isShowingProgress) {
+            //TODO this needs to be worked better. Should be getting the next step circle and measure the distance
+            layoutParams.height = context.getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_72dp);
             return layoutParams;
         } else {
             layoutParams.height = context.getResources().getDimensionPixelSize(R.dimen.io_ta_stepper_form_32dp);

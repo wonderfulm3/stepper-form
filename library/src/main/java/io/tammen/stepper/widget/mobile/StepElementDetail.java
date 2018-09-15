@@ -35,6 +35,7 @@ public class StepElementDetail {
     StepButtonListener stepButtonListener;
     boolean stepHasValidationProgressBar;
     boolean isStepInValidationState;
+    boolean stepIsCancelled;
     public StepValidationListener stepValidationListener = new StepValidationListener() {
         @Override
         public void isStepInValidationState(boolean validating) {
@@ -54,8 +55,12 @@ public class StepElementDetail {
             if (isStepInValidationState) {
                 Log.d(TAG, "Setting isStepInValidationState to false");
                 setIsStepInValidationState(false);
-
             }
+        }
+
+        @Override
+        public void cancelStep() {
+            stepIsCancelled = true;
         }
     };
 
