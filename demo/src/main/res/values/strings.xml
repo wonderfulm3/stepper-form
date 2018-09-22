@@ -3,4 +3,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="step1_cb_option_a">Extra Cheese</string>
     <string name="step1_cb_option_b">Pepperoni</string>
+    <string name="step2_cb_option_a">Thin crust</string>
+    <string name="step2_cb_option_b">Thick crust</string>
 </resources>

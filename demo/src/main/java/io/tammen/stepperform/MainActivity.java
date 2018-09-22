@@ -13,6 +13,7 @@ import io.tammen.stepper.widget.mobile.Vertical;
 import io.tammen.stepper.widget.mobile.exception.StepperElementException;
 import io.tammen.stepper.widget.mobile.interfaces.StepButtonListener;
 import io.tammen.stepperform.view.Step1;
+import io.tammen.stepperform.view.Step2;
 
 /**
  * Created by Tammen Bruccoleri on 12/28/2017.
@@ -46,7 +47,10 @@ public class MainActivity extends AppCompatActivity implements StepButtonListene
         StepElementDetail step1;
         StepElementDetail step2;
         StepElementDetail step3;
+
+        //Step 3b. Create the Step view's
         Step1 step1View = new Step1(this);
+        Step2 step2View = new Step2(this);
         try {
             step1 = new StepElementDetail.StepElementBuilder("Select pizza toppings")
                     .stepSubText("This is a required step!")
@@ -56,16 +60,19 @@ public class MainActivity extends AppCompatActivity implements StepButtonListene
                     .stepHasValidationProgressBar(true)
                     .stepView(step1View)
                     .build();
-            //Step 3b. Handling the step validation in Step1 View.
+            //Step 3c. Handling the step validation in Step1 View.
             step1View.stepValidationListener = step1.stepValidationListener;
 
             step2 = new StepElementDetail.StepElementBuilder("This is a second step example")
-                    .stepButtonListener(this)
+                    .stepButtonListener(step2View)
                     .stepRequiresValidation(true)
                     .stepContinueOnValidationFailure(true)
-                    .stepSubText("While optional, please provide a value. Pizza may only be half-baked")
+                    .stepSubText("While optional, please select a crust. Otherwise, the pizza will have random crust")
+                    .stepView(step2View)
                     .stepOptional(true)
                     .build();
+            //Step 3c. Handling the step validation in Step2 View.
+            step2View.stepValidationListener = step2.stepValidationListener;
 
             step3 = new StepElementDetail.StepElementBuilder("This is a third step example")
                     .stepButtonListener(this)

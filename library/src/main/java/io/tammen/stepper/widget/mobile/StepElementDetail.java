@@ -23,7 +23,7 @@ public class StepElementDetail {
     public String stepSubText;
     @IntRange(from = 1, to = 255)
     public int stepNumber;
-    private boolean stepOptional;
+    boolean stepOptional;
     boolean isStepExpanded;
     boolean isStepDirty;
     @StepIcon.StepIconInterface
@@ -78,10 +78,6 @@ public class StepElementDetail {
         this.stepView = builder.stepView;
         this.stepButtonListener = builder.stepButtonListener;
         this.stepHasValidationProgressBar = builder.stepHasValidationProgressBar;
-    }
-
-    public boolean getIsStepValid() {
-        return isStepValid;
     }
 
     @StepIcon.StepIconInterface

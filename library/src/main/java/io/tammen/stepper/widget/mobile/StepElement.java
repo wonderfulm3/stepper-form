@@ -2,7 +2,6 @@ package io.tammen.stepper.widget.mobile;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -182,7 +181,8 @@ public class StepElement extends RelativeLayout implements StepValidationListene
                 setViewElements(View.GONE, true);
             }
 
-            if (stepElementDetail.isStepValid()) {
+            //If step is valid or the step is optional we proceed through to the next step
+            if (stepElementDetail.isStepValid() || stepElementDetail.stepOptional) {
                 setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
                 setViewElements(View.GONE, false);
             } else if (!stepElementDetail.isStepValid() && stepElementDetail.stepContinueOnValidationFailure) {
@@ -196,11 +196,6 @@ public class StepElement extends RelativeLayout implements StepValidationListene
             setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
             setViewElements(View.GONE, false);
         }
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        Log.d(TAG, "onDraw being called");
     }
 
     private void setViewElements(int visibility, boolean showProgressBar) {
