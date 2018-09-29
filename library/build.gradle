@@ -7,7 +7,7 @@ android {
         vectorDrawables.useSupportLibrary = true
         minSdkVersion 23
         targetSdkVersion 28
-        buildToolsVersion "28.0.2"
+        buildToolsVersion "28.0.3"
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
