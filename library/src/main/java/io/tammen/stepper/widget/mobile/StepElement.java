@@ -138,15 +138,24 @@ public class StepElement extends RelativeLayout implements StepValidationListene
         int i = v.getId();
         touchEventOccurred = true;
         if (i == R.id.rl_row_element) {
+            //TODO this really needs to be cleaned up. I don't like it.
             if (stepElementDetail.isStepExpanded) {
                 if (stepElementDetail.isStepDirty) {
-                    setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
+                    if (stepElementDetail.isStepValid()) {
+                        setStepIcon(StepIcon.CHECKED, stepElementDetail.stepNumber);
+                    } else if (!stepElementDetail.hasStepBeenValidated) {
+                        setStepIcon(StepIcon.INACTIVE, stepElementDetail.stepNumber);
+                    }
                 }
                 Log.d(TAG, "Step " + stepElementDetail.stepNumber + " already expanded. Time to collapse");
                 setViewElements(View.GONE, false);
             } else {
                 stepElementDetail.isStepDirty = true;
-                setStepIcon(StepIcon.EDIT, 0);
+                if (stepElementDetail.isStepValid() && stepElementDetail.hasStepBeenValidated) {
+                    setStepIcon(StepIcon.EDIT, stepElementDetail.stepNumber);
+                } else {
+                    setStepIcon(StepIcon.ACTIVE, stepElementDetail.stepNumber);
+                }
                 Log.d(TAG, "Step " + stepElementDetail.stepNumber + " is not expanded. Time to expand");
                 setViewElements(View.VISIBLE, false);
             }

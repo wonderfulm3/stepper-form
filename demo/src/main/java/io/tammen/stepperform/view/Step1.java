@@ -63,7 +63,8 @@ public class Step1 extends RelativeLayout implements StepButtonListener {
         //Must select 1 or more toppings for this step to be considered valid and meet validation
         if (option1.isChecked() || option2.isChecked()) {
             this.stepValidationListener.isStepInValidationState(true);
-            handler.postDelayed(runnable, 5000);
+            //Simulate calling a backend service to check if the topping are available
+            handler.postDelayed(runnable, 2000);
         } else {
             this.stepValidationListener.isStepValid(false);
         }

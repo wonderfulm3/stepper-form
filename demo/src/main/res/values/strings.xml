@@ -3,6 +3,10 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="step1_cb_option_a">Extra Cheese</string>
     <string name="step1_cb_option_b">Pepperoni</string>
-    <string name="step2_cb_option_a">Thin crust</string>
-    <string name="step2_cb_option_b">Thick crust</string>
+    <string name="step2_rb_option_a">Thin crust</string>
+    <string name="step2_rb_option_b">Thick crust</string>
+    <string name="step2_rb_option_c">Cheesy crust</string>
+    <string name="step3_rb_option_a">Cash</string>
+    <string name="step3_rb_option_b">Credit Card</string>
+    <string name="step3_rb_option_c">Check</string>
 </resources>

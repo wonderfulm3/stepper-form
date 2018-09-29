@@ -25,7 +25,12 @@ public class StepElementDetail {
     public int stepNumber;
     boolean stepOptional;
     boolean isStepExpanded;
+    /**
+     * isStepDirty references the change of state since last validation. If the StepElement has
+     * any model changes this is reflected as a state change.
+     */
     boolean isStepDirty;
+    boolean hasStepBeenValidated;
     @StepIcon.StepIconInterface
     private int stepIcon;
     private boolean stepRequiresValidation;
@@ -40,6 +45,7 @@ public class StepElementDetail {
         @Override
         public void isStepInValidationState(boolean validating) {
             Log.d(TAG, "Step in validation state: " + validating);
+            hasStepBeenValidated = false;
             setIsStepInValidationState(validating);
             //Handling the case where step was in a validate state and now a new state of validation occurs
             if (isStepValid) {
@@ -50,6 +56,7 @@ public class StepElementDetail {
         @Override
         public void isStepValid(boolean stepValid) {
             Log.d(TAG, "Step valid: " + stepValid);
+            hasStepBeenValidated = true;
             setIsStepValid(stepValid);
             //Handling the case where in a validating state is in progress when a validation of fail/success
             if (isStepInValidationState) {
@@ -118,6 +125,8 @@ public class StepElementDetail {
         this.setStepIcon(StepIcon.INACTIVE);
         this.isStepExpanded = false;
         this.isStepDirty = false;
+        this.hasStepBeenValidated = false;
+        this.isStepValid = false;
     }
 
     @RestrictTo(RestrictTo.Scope.LIBRARY)

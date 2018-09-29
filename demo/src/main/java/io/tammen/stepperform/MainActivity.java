@@ -14,6 +14,7 @@ import io.tammen.stepper.widget.mobile.exception.StepperElementException;
 import io.tammen.stepper.widget.mobile.interfaces.StepButtonListener;
 import io.tammen.stepperform.view.Step1;
 import io.tammen.stepperform.view.Step2;
+import io.tammen.stepperform.view.Step3;
 
 /**
  * Created by Tammen Bruccoleri on 12/28/2017.
@@ -28,32 +29,27 @@ public class MainActivity extends AppCompatActivity implements StepButtonListene
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectAll()
-                .penaltyLog()
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog()
                 .build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectAll()
-                .penaltyLog()
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog()
                 .build());
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+
         //Step 2. Init the Vertical view
         Vertical vertical = findViewById(R.id.vertical_example);
 
         //Step 3. Create Step Element objects
-        StepElementDetail step1;
-        StepElementDetail step2;
-        StepElementDetail step3;
+        StepElementDetail step1, step2, step3;
 
         //Step 3b. Create the Step view's
         Step1 step1View = new Step1(this);
         Step2 step2View = new Step2(this);
+        Step3 step3View = new Step3(this);
         try {
             step1 = new StepElementDetail.StepElementBuilder("Select pizza toppings")
-                    .stepSubText("This is a required step!")
+                    .stepSubText("The more the better!")
                     .stepButtonListener(step1View)
                     .stepRequiresValidation(true)
                     .stepContinueOnValidationFailure(false)
@@ -63,10 +59,9 @@ public class MainActivity extends AppCompatActivity implements StepButtonListene
             //Step 3c. Handling the step validation in Step1 View.
             step1View.stepValidationListener = step1.stepValidationListener;
 
-            step2 = new StepElementDetail.StepElementBuilder("This is a second step example")
+            step2 = new StepElementDetail.StepElementBuilder("Select pizza crust")
                     .stepButtonListener(step2View)
-                    .stepRequiresValidation(true)
-                    .stepContinueOnValidationFailure(true)
+                    .stepRequiresValidation(false)
                     .stepSubText("While optional, please select a crust. Otherwise, the pizza will have random crust")
                     .stepView(step2View)
                     .stepOptional(true)
@@ -74,9 +69,13 @@ public class MainActivity extends AppCompatActivity implements StepButtonListene
             //Step 3c. Handling the step validation in Step2 View.
             step2View.stepValidationListener = step2.stepValidationListener;
 
-            step3 = new StepElementDetail.StepElementBuilder("This is a third step example")
-                    .stepButtonListener(this)
+            step3 = new StepElementDetail.StepElementBuilder("Payment type")
+                    .stepSubText("Is required before pizza is consumed")
+                    .stepButtonListener(step3View)
+                    .stepRequiresValidation(true)
+                    .stepView(step3View)
                     .build();
+            step3View.stepValidationListener = step3.stepValidationListener;
 
         } catch (StepperElementException ex) {
             Log.e(TAG, "We have a Builder issue: " + ex.getMessage());

@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_step1"
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@android:color/transparent">
+    android:layout_height="wrap_content">
 
-    <CheckBox
-        android:id="@+id/cb_option_a"
+    <RadioButton
+        android:id="@+id/rb_step2_option_a"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/step2_cb_option_a" />
+        android:text="@string/step2_rb_option_a" />
 
-    <CheckBox
-        android:id="@+id/cb_option_b"
+    <RadioButton
+        android:id="@+id/rb_step2_option_b"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cb_option_a"
-        android:layout_marginTop="@dimen/io_ta_demo_example_8dp"
-        android:text="@string/step2_cb_option_b" />
-</RelativeLayout>
+        android:text="@string/step2_rb_option_b" />
+
+    <RadioButton
+        android:id="@+id/rb_step2_option_c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/step2_rb_option_c" />
+</RadioGroup>
