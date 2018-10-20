@@ -1,8 +1,8 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportHeight="24"
-    android:viewportWidth="24">
+    android:width="@dimen/io_ta_stepper_circle_height"
+    android:height="@dimen/io_ta_stepper_circle_width"
+    android:viewportWidth="34"
+    android:viewportHeight="34">
     <path
         android:fillColor="@color/io_ta_blue_500"
         android:pathData="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
